@@ -1,18 +1,27 @@
-package com.hackaprende.dogedex
+package com.hackaprende.dogedex.doglist
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.hackaprende.dogedex.Dog
+import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.databinding.ActivityDogListBinding
 
 class DogListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityDogListBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_dog_list)
+        setContentView(binding.root)
 
         val dogList = getFakeDogs()
 
         val recycler = binding.dogRecycler
+        recycler.layoutManager = LinearLayoutManager(this)
+
+        val adapter = DogAdapter()
+        recycler.adapter = adapter
+
+        adapter.submitList(dogList)
     }
 
     private fun getFakeDogs(): MutableList<Dog> {
