@@ -1,8 +1,17 @@
 package com.hackaprende.dogedex
 
+import com.squareup.moshi.Json
+
 data class Dog(
-    val id: Long, val index: Int, val name: String, val type: String,
-    val heightFemale: Double, val heightMale: Double, val imageUrl: String,
-    val lifeExpectancy: String, val temperament: String, val weightFemale: Double,
-    val weightMale: Double
+    val id: Long,
+    val index: Int,
+    @field:Json(name = "name_en") val name: String,
+    @field:Json(name = "dog_type") val type: String,
+    @field:Json(name = "height_female") val heightFemale: String,
+    @field:Json(name = "height_male") val heightMale: String,
+    @field:Json(name = "image_url") val imageUrl: String,
+    @field:Json(name = "life_expectancy") val lifeExpectancy: String,
+    val temperament: String,
+    @field:Json(name = "weight_female") val weightFemale: String,
+    @field:Json(name = "weight_male") val weightMale: String
 )
