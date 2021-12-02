@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Dogedex</string>
+    <string name="female">Female</string>
+    <string name="weight">Weight</string>
+    <string name="height">Height</string>
+    <string name="group">Group</string>
+    <string name="male">Male</string>
 </resources>
