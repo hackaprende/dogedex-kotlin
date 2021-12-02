@@ -1,5 +1,5 @@
 package com.hackaprende.dogedex.api.responses
 
-import com.hackaprende.dogedex.Dog
+import com.hackaprende.dogedex.api.dto.DogDTO
 
-class DogListResponse(val dogs: List<Dog>)
+class DogListResponse(val dogs: List<DogDTO>)
