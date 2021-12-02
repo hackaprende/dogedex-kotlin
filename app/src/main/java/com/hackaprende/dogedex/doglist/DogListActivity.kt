@@ -1,5 +1,6 @@
 package com.hackaprende.dogedex.doglist
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
@@ -7,6 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.hackaprende.dogedex.Dog
 import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.databinding.ActivityDogListBinding
+import com.hackaprende.dogedex.dogdetail.DogDetailActivity
+import com.hackaprende.dogedex.dogdetail.DogDetailActivity.Companion.DOG_KEY
 
 class DogListActivity : AppCompatActivity() {
 
@@ -21,6 +24,12 @@ class DogListActivity : AppCompatActivity() {
         recycler.layoutManager = LinearLayoutManager(this)
 
         val adapter = DogAdapter()
+
+        adapter.setOnItemClickListener {
+            val intent = Intent(this, DogDetailActivity::class.java)
+            intent.putExtra(DOG_KEY, it)
+            startActivity(intent)
+        }
         recycler.adapter = adapter
 
         dogListViewModel.dogList.observe(this) {

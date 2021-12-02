@@ -3,6 +3,8 @@
 
     <TextView
         android:id="@+id/dog_name"
+        android:padding="16dp"
+        android:background="?attr/selectableItemBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </layout>

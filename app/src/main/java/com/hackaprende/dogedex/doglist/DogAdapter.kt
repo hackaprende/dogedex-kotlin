@@ -2,6 +2,7 @@ package com.hackaprende.dogedex.doglist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -18,6 +19,11 @@ class DogAdapter : ListAdapter<Dog, DogAdapter.DogViewHolder>(DiffCallback) {
         override fun areContentsTheSame(oldItem: Dog, newItem: Dog): Boolean {
             return oldItem.id == newItem.id
         }
+    }
+
+    private var onItemClickListener: ((Dog) -> Unit)? = null
+    fun setOnItemClickListener(onItemClickListener: (Dog) -> Unit) {
+        this.onItemClickListener = onItemClickListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup,
@@ -37,6 +43,9 @@ class DogAdapter : ListAdapter<Dog, DogAdapter.DogViewHolder>(DiffCallback) {
         RecyclerView.ViewHolder(binding.root) {
             fun bind(dog: Dog) {
                 binding.dogName.text = dog.name
+                binding.dogName.setOnClickListener {
+                    onItemClickListener?.invoke(dog)
+                }
             }
     }
 }
