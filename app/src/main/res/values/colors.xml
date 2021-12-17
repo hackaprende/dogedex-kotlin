@@ -16,4 +16,5 @@
     <color name="colorAccent">#FFFF00</color>
     <color name="colorSecondary">#142CC6</color>
     <color name="colorSecondaryDark">#0C1D8A</color>
+    <color name="light_gray">#BCBCBC</color>
 </resources>

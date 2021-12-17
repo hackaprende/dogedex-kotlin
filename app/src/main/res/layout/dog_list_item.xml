@@ -1,10 +1,23 @@
-<?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:id="@+id/dog_name"
-        android:padding="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:id="@+id/dog_list_item_layout"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:background="@drawable/dog_list_item_background"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@id/dog_image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true" />
+
+        </RelativeLayout>
+    </FrameLayout>
 </layout>
