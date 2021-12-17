@@ -10,4 +10,13 @@
     <string name="dog_life_expectancy_format">%s years</string>
     <string name="unknown_host_exception_error">There is no internet connection</string>
     <string name="unknown_error">There was an error</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="register">Register</string>
+    <string name="do_not_have_an_account">Do not have an account?</string>
+    <string name="password">Password</string>
+    <string name="email">Email</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign up</string>
+    <string name="confirm_password">Confirm password</string>
 </resources>
