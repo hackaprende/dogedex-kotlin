@@ -12,6 +12,7 @@ import com.hackaprende.dogedex.MainActivity
 import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.api.ApiResponseStatus
 import com.hackaprende.dogedex.databinding.ActivityLoginBinding
+import com.hackaprende.dogedex.model.User
 
 class LoginActivity : AppCompatActivity(), LoginFragment.LoginFragmentActions,
     SignUpFragment.SignUpFragmentActions {
@@ -39,6 +40,7 @@ class LoginActivity : AppCompatActivity(), LoginFragment.LoginFragmentActions,
         viewModel.user.observe(this) {
             user ->
             if (user != null) {
+                User.setLoggedInUser(this, user)
                 startMainActivity()
             }
         }
@@ -46,6 +48,7 @@ class LoginActivity : AppCompatActivity(), LoginFragment.LoginFragmentActions,
 
     private fun startMainActivity() {
         startActivity(Intent(this, MainActivity::class.java))
+        finish()
     }
 
     private fun showErrorDialog(messageId: Int) {
