@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.databinding.FragmentSignUpBinding
+import com.hackaprende.dogedex.isValidEmail
 
 class SignUpFragment : Fragment() {
 
@@ -75,10 +76,5 @@ class SignUpFragment : Fragment() {
         }
 
         signUpFragmentActions.onSignUpFieldsValidated(email, password, passwordConfirmation)
-    }
-
-    private fun isValidEmail(email: String?): Boolean {
-        return !email.isNullOrEmpty() &&
-                Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
 }

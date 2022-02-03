@@ -3,6 +3,7 @@ package com.hackaprende.dogedex.api
 import com.hackaprende.dogedex.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 import java.lang.Exception
 import java.net.UnknownHostException
 
