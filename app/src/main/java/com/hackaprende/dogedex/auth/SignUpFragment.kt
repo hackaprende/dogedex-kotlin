@@ -1,5 +1,6 @@
 package com.hackaprende.dogedex.auth
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -10,6 +11,22 @@ import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.databinding.FragmentSignUpBinding
 
 class SignUpFragment : Fragment() {
+
+    interface SignUpFragmentActions {
+        fun onSignUpFieldsValidated(email: String, password: String,
+                                    passwordConfirmation: String)
+    }
+
+    private lateinit var signUpFragmentActions: SignUpFragmentActions
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        signUpFragmentActions = try {
+            context as SignUpFragmentActions
+        } catch (e: ClassCastException) {
+            throw ClassCastException("$context must implement LoginFragmentActions")
+        }
+    }
 
     private lateinit var binding: FragmentSignUpBinding
 
@@ -57,7 +74,7 @@ class SignUpFragment : Fragment() {
             return
         }
 
-        // Perform sign up
+        signUpFragmentActions.onSignUpFieldsValidated(email, password, passwordConfirmation)
     }
 
     private fun isValidEmail(email: String?): Boolean {
