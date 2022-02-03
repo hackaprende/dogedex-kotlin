@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hackaprende.dogedex.Dog
+import com.hackaprende.dogedex.model.Dog
 import com.hackaprende.dogedex.api.ApiResponseStatus
 import kotlinx.coroutines.launch
 

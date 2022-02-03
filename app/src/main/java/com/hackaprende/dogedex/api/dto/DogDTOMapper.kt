@@ -1,6 +1,6 @@
 package com.hackaprende.dogedex.api.dto
 
-import com.hackaprende.dogedex.Dog
+import com.hackaprende.dogedex.model.Dog
 
 class DogDTOMapper {
 

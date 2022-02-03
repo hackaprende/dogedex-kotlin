@@ -7,9 +7,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.hackaprende.dogedex.Dog
-import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.api.ApiResponseStatus
 import com.hackaprende.dogedex.databinding.ActivityDogListBinding
 import com.hackaprende.dogedex.dogdetail.DogDetailActivity

@@ -6,7 +6,7 @@
 
         <variable
             name="dog"
-            type="com.hackaprende.dogedex.Dog" />
+            type="com.hackaprende.dogedex.model.Dog" />
     </data>
 
     <FrameLayout

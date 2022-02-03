@@ -1,7 +1,6 @@
 package com.hackaprende.dogedex.api
 
 import com.hackaprende.dogedex.BASE_URL
-import com.hackaprende.dogedex.Dog
 import com.hackaprende.dogedex.GET_ALL_DOGS_URL
 import com.hackaprende.dogedex.SIGN_UP_URL
 import com.hackaprende.dogedex.api.dto.SignUpDTO
