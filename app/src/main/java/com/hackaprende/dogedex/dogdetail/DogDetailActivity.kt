@@ -3,6 +3,7 @@ package com.hackaprende.dogedex.dogdetail
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import coil.load
 import com.hackaprende.dogedex.model.Dog
 import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.databinding.ActivityDogDetailBinding

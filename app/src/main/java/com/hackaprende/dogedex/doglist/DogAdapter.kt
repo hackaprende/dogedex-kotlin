@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.hackaprende.dogedex.model.Dog
 import com.hackaprende.dogedex.databinding.DogListItemBinding
 

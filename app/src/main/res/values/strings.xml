@@ -23,4 +23,5 @@
     <string name="error_sign_up">Error signing up</string>
     <string name="error_sign_in">Error logging in</string>
     <string name="user_already_exists">User already exists</string>
+    <string name="there_was_an_error">There was an error</string>
 </resources>
