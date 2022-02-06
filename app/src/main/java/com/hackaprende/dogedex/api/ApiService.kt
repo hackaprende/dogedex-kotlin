@@ -1,20 +1,24 @@
 package com.hackaprende.dogedex.api
 
-import com.hackaprende.dogedex.BASE_URL
-import com.hackaprende.dogedex.GET_ALL_DOGS_URL
-import com.hackaprende.dogedex.SIGN_IN_URL
-import com.hackaprende.dogedex.SIGN_UP_URL
+import com.hackaprende.dogedex.*
+import com.hackaprende.dogedex.api.dto.AddDogToUserDTO
 import com.hackaprende.dogedex.api.dto.LoginDTO
 import com.hackaprende.dogedex.api.dto.SignUpDTO
 import com.hackaprende.dogedex.api.responses.DogListApiResponse
 import com.hackaprende.dogedex.api.responses.AuthApiResponse
+import com.hackaprende.dogedex.api.responses.DefaultResponse
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
+import retrofit2.http.*
+
+private val okHttpClient = OkHttpClient
+    .Builder()
+    .addInterceptor(ApiServiceInterceptor)
+    .build()
 
 private val retrofit = Retrofit.Builder()
+    .client(okHttpClient)
     .baseUrl(BASE_URL)
     .addConverterFactory(MoshiConverterFactory.create())
     .build()
@@ -28,6 +32,10 @@ interface ApiService {
 
     @POST(SIGN_IN_URL)
     suspend fun login(@Body loginDTO: LoginDTO): AuthApiResponse
+
+    @Headers("${ApiServiceInterceptor.NEEDS_AUTH_HEADER_KEY}: true")
+    @POST(ADD_DOG_TO_USER_URL)
+    suspend fun addDogToUser(@Body addDogToUserDTO: AddDogToUserDTO): DefaultResponse
 }
 
 object DogsApi {

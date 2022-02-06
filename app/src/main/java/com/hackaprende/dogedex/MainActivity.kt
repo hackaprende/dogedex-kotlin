@@ -3,6 +3,7 @@ package com.hackaprende.dogedex
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.hackaprende.dogedex.api.ApiServiceInterceptor
 import com.hackaprende.dogedex.auth.LoginActivity
 import com.hackaprende.dogedex.databinding.ActivityMainBinding
 import com.hackaprende.dogedex.doglist.DogListActivity
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         if (user == null) {
             openLoginActivity()
             return
+        } else {
+            ApiServiceInterceptor.setSessionToken(user.authenticationToken)
         }
 
         binding.settingsFab.setOnClickListener {
