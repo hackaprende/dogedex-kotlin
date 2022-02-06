@@ -24,7 +24,7 @@ class DogListViewModel : ViewModel() {
         downloadDogs()
     }
 
-    fun addDogToUser(dogId: String) {
+    fun addDogToUser(dogId: Long) {
         viewModelScope.launch {
             _status.value = ApiResponseStatus.Loading()
             handleAddDogToUserResponseStatus(dogRepository.addDogToUser(dogId))
