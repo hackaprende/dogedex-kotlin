@@ -13,7 +13,8 @@
         android:theme="@style/Theme.Dogedex">
         <activity
             android:name=".settings.SettingsActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".auth.LoginActivity"
             android:exported="false" />
@@ -22,7 +23,8 @@
             android:exported="false" />
         <activity
             android:name=".doglist.DogListActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
