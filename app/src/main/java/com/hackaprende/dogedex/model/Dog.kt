@@ -15,5 +15,6 @@ data class Dog(
     val lifeExpectancy: String,
     val temperament: String,
     val weightFemale: String,
-    val weightMale: String
+    val weightMale: String,
+    var inCollection: Boolean = false
 ) : Parcelable
