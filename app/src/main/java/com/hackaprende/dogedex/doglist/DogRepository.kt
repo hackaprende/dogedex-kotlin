@@ -38,11 +38,11 @@ class DogRepository {
                 it
             } else {
                 Dog(
-                    0, it.index, "", "", "", "",
+                    it.id, it.index, "", "", "", "",
                     "", "", "", "", ""
                 )
             }
-        }
+        }.sorted()
 
     private suspend fun downloadDogs(): ApiResponseStatus<List<Dog>> = makeNetworkCall {
         val dogListApiResponse = retrofitService.getAllDogs()
