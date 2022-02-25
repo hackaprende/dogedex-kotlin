@@ -1,11 +1,14 @@
 package com.hackaprende.dogedex.doglist
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
+import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.model.Dog
 import com.hackaprende.dogedex.databinding.DogListItemBinding
 
@@ -47,14 +50,31 @@ class DogAdapter : ListAdapter<Dog, DogAdapter.DogViewHolder>(DiffCallback) {
     inner class DogViewHolder(private val binding: DogListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
             fun bind(dog: Dog) {
-                binding.dogListItemLayout.setOnClickListener {
-                    onItemClickListener?.invoke(dog)
+                if (dog.inCollection) {
+                    binding.dogListItemLayout.background = ContextCompat.getDrawable(
+                        binding.dogImage.context,
+                        R.drawable.dog_list_item_background
+                    )
+                    binding.dogImage.visibility = View.VISIBLE
+                    binding.dogIndex.visibility = View.GONE
+
+                    binding.dogListItemLayout.setOnClickListener {
+                        onItemClickListener?.invoke(dog)
+                    }
+                    binding.dogImage.load(dog.imageUrl)
+                } else {
+                    binding.dogImage.visibility = View.GONE
+                    binding.dogIndex.visibility = View.VISIBLE
+                    binding.dogIndex.text = dog.index.toString()
+                    binding.dogListItemLayout.background = ContextCompat.getDrawable(
+                        binding.dogImage.context,
+                        R.drawable.dog_list_item_null_background
+                    )
+                    binding.dogListItemLayout.setOnLongClickListener {
+                        onLongItemClickListener?.invoke(dog)
+                        true
+                    }
                 }
-                binding.dogListItemLayout.setOnLongClickListener {
-                    onLongItemClickListener?.invoke(dog)
-                    true
-                }
-                binding.dogImage.load(dog.imageUrl)
             }
     }
 }
