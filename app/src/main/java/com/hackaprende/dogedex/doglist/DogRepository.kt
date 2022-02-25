@@ -8,6 +8,7 @@ import com.hackaprende.dogedex.api.dto.AddDogToUserDTO
 import com.hackaprende.dogedex.api.dto.DogDTOMapper
 import com.hackaprende.dogedex.api.makeNetworkCall
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
 import java.lang.Exception
 
@@ -15,8 +16,11 @@ class DogRepository {
 
     suspend fun getDogCollection(): ApiResponseStatus<List<Dog>> {
         return withContext(Dispatchers.IO) {
-            val allDogsListResponse = downloadDogs()
-            val userDogsListResponse = getUserDogs()
+            val allDogsListDeferred = async { downloadDogs() }
+            val userDogsListDeferred = async { getUserDogs() }
+
+            val allDogsListResponse = allDogsListDeferred.await()
+            val userDogsListResponse = userDogsListDeferred.await()
 
             if (allDogsListResponse is ApiResponseStatus.Error) {
                 allDogsListResponse
