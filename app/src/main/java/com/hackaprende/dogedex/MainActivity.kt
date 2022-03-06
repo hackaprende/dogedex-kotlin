@@ -134,8 +134,16 @@ class MainActivity : AppCompatActivity() {
                 }
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     // insert your code here.
+                    val photoUri = outputFileResults.savedUri
+                    openWholeImageActivity(photoUri.toString())
                 }
             })
+    }
+
+    private fun openWholeImageActivity(photoUri: String) {
+        val intent = Intent(this, WholeImageActivity::class.java)
+        intent.putExtra(WholeImageActivity.PHOTO_URI_KEY, photoUri)
+        startActivity(intent)
     }
 
     private fun getOutputPhotoFile(): File {

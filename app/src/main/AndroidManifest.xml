@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dogedex">
         <activity
+            android:name=".WholeImageActivity"
+            android:exported="false" />
+        <activity
             android:name=".settings.SettingsActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
