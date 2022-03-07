@@ -3,6 +3,7 @@ package com.hackaprende.dogedex
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,8 +18,10 @@ import com.hackaprende.dogedex.api.ApiServiceInterceptor
 import com.hackaprende.dogedex.auth.LoginActivity
 import com.hackaprende.dogedex.databinding.ActivityMainBinding
 import com.hackaprende.dogedex.doglist.DogListActivity
+import com.hackaprende.dogedex.machinelearning.Classifier
 import com.hackaprende.dogedex.model.User
 import com.hackaprende.dogedex.settings.SettingsActivity
+import org.tensorflow.lite.support.common.FileUtil
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -39,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var imageCapture: ImageCapture
     private lateinit var cameraExecutor: ExecutorService
+    private lateinit var classifier: Classifier
     private var isCameraReady = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,6 +73,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         requestCameraPermission()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        classifier = Classifier(
+            FileUtil.loadMappedFile(this@MainActivity, MODEL_PATH),
+            FileUtil.loadLabels(this@MainActivity, LABEL_PATH)
+        )
     }
 
     override fun onDestroy() {
@@ -132,6 +144,10 @@ class MainActivity : AppCompatActivity() {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
                     // insert your code here.
                     val photoUri = outputFileResults.savedUri
+
+                    val bitmap = BitmapFactory.decodeFile(photoUri?.path)
+                    classifier.recognizeImage(bitmap)
+
                     openWholeImageActivity(photoUri.toString())
                 }
             })

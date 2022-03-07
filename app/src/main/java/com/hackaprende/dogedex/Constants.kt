@@ -8,3 +8,5 @@ const val ADD_DOG_TO_USER_URL = "add_dog_to_user"
 const val GET_USER_DOGS_URL = "get_user_dogs"
 
 const val MAX_RECOGNITION_DOG_RESULTS = 5
+const val MODEL_PATH = "model.tflite"
+const val LABEL_PATH = "labels.txt"
