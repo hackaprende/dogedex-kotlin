@@ -55,6 +55,10 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:1.1.0-beta02"
     implementation "androidx.camera:camera-view:1.1.0-beta02"
 
+    // TensorFlow Lite
+    implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly-SNAPSHOT'
+    implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
+
     // Retrofit y Moshi
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
