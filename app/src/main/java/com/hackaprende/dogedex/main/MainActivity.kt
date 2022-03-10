@@ -1,4 +1,4 @@
-package com.hackaprende.dogedex
+package com.hackaprende.dogedex.main
 
 import android.Manifest
 import android.content.Intent
@@ -7,18 +7,26 @@ import android.graphics.BitmapFactory
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
+import com.hackaprende.dogedex.LABEL_PATH
+import com.hackaprende.dogedex.MODEL_PATH
+import com.hackaprende.dogedex.R
+import com.hackaprende.dogedex.api.ApiResponseStatus
 import com.hackaprende.dogedex.api.ApiServiceInterceptor
 import com.hackaprende.dogedex.auth.LoginActivity
 import com.hackaprende.dogedex.databinding.ActivityMainBinding
+import com.hackaprende.dogedex.dogdetail.DogDetailActivity
+import com.hackaprende.dogedex.dogdetail.DogDetailActivity.Companion.DOG_KEY
 import com.hackaprende.dogedex.doglist.DogListActivity
 import com.hackaprende.dogedex.machinelearning.Classifier
+import com.hackaprende.dogedex.model.Dog
 import com.hackaprende.dogedex.model.User
 import com.hackaprende.dogedex.settings.SettingsActivity
 import org.tensorflow.lite.support.common.FileUtil
@@ -44,6 +52,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var cameraExecutor: ExecutorService
     private lateinit var classifier: Classifier
     private var isCameraReady = false
+    private val viewModel: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +81,33 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.status.observe(this) {
+                status ->
+
+            when(status) {
+                is ApiResponseStatus.Error -> {
+                    binding.loadingWheel.visibility = View.GONE
+                    Toast.makeText(this, status.messageId, Toast.LENGTH_SHORT).show()
+                }
+                is ApiResponseStatus.Loading -> binding.loadingWheel.visibility = View.VISIBLE
+                is ApiResponseStatus.Success -> binding.loadingWheel.visibility = View.GONE
+            }
+        }
+
+        viewModel.dog.observe(this) {
+            dog ->
+            if (dog != null) {
+                openDogDetailActivity(dog)
+            }
+        }
+
         requestCameraPermission()
+    }
+
+    private fun openDogDetailActivity(dog: Dog) {
+        val intent = Intent(this, DogDetailActivity::class.java)
+        intent.putExtra(DOG_KEY, dog)
+        startActivity(intent)
     }
 
     override fun onStart() {
@@ -146,17 +181,10 @@ class MainActivity : AppCompatActivity() {
                     val photoUri = outputFileResults.savedUri
 
                     val bitmap = BitmapFactory.decodeFile(photoUri?.path)
-                    classifier.recognizeImage(bitmap)
-
-                    openWholeImageActivity(photoUri.toString())
+                    val dogRecognition = classifier.recognizeImage(bitmap).first()
+                    viewModel.getDogByMlId(dogRecognition.id)
                 }
             })
-    }
-
-    private fun openWholeImageActivity(photoUri: String) {
-        val intent = Intent(this, WholeImageActivity::class.java)
-        intent.putExtra(WholeImageActivity.PHOTO_URI_KEY, photoUri)
-        startActivity(intent)
     }
 
     private fun getOutputPhotoFile(): File {

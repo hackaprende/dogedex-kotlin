@@ -3,12 +3,11 @@ package com.hackaprende.dogedex.auth
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import com.hackaprende.dogedex.MainActivity
+import com.hackaprende.dogedex.main.MainActivity
 import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.api.ApiResponseStatus
 import com.hackaprende.dogedex.databinding.ActivityLoginBinding
