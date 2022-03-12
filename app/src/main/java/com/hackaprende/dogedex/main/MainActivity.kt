@@ -25,6 +25,7 @@ import com.hackaprende.dogedex.auth.LoginActivity
 import com.hackaprende.dogedex.databinding.ActivityMainBinding
 import com.hackaprende.dogedex.dogdetail.DogDetailActivity
 import com.hackaprende.dogedex.dogdetail.DogDetailActivity.Companion.DOG_KEY
+import com.hackaprende.dogedex.dogdetail.DogDetailActivity.Companion.IS_RECOGNITION_KEY
 import com.hackaprende.dogedex.doglist.DogListActivity
 import com.hackaprende.dogedex.machinelearning.Classifier
 import com.hackaprende.dogedex.machinelearning.DogRecognition
@@ -104,6 +105,7 @@ class MainActivity : AppCompatActivity() {
     private fun openDogDetailActivity(dog: Dog) {
         val intent = Intent(this, DogDetailActivity::class.java)
         intent.putExtra(DOG_KEY, dog)
+        intent.putExtra(IS_RECOGNITION_KEY, true)
         startActivity(intent)
     }
 
