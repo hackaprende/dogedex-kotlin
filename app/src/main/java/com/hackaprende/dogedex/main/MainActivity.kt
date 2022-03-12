@@ -1,9 +1,10 @@
 package com.hackaprende.dogedex.main
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.graphics.BitmapFactory
+import android.graphics.*
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,10 +27,12 @@ import com.hackaprende.dogedex.dogdetail.DogDetailActivity
 import com.hackaprende.dogedex.dogdetail.DogDetailActivity.Companion.DOG_KEY
 import com.hackaprende.dogedex.doglist.DogListActivity
 import com.hackaprende.dogedex.machinelearning.Classifier
+import com.hackaprende.dogedex.machinelearning.DogRecognition
 import com.hackaprende.dogedex.model.Dog
 import com.hackaprende.dogedex.model.User
 import com.hackaprende.dogedex.settings.SettingsActivity
 import org.tensorflow.lite.support.common.FileUtil
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -73,12 +76,6 @@ class MainActivity : AppCompatActivity() {
 
         binding.dogListFab.setOnClickListener {
             openDogListActivity()
-        }
-
-        binding.takePhotoFab.setOnClickListener {
-            if (isCameraReady) {
-                takePhoto()
-            }
         }
 
         viewModel.status.observe(this) {
@@ -166,38 +163,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun takePhoto() {
-        val outputFileOptions = ImageCapture.OutputFileOptions.Builder(getOutputPhotoFile()).build()
-        imageCapture.takePicture(outputFileOptions, cameraExecutor,
-            object : ImageCapture.OnImageSavedCallback {
-                override fun onError(error: ImageCaptureException)
-                {
-                    Toast.makeText(this@MainActivity,
-                        "Error taking photo ${error.message}",
-                        Toast.LENGTH_SHORT).show()
-                }
-                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    // insert your code here.
-                    val photoUri = outputFileResults.savedUri
-
-                    val bitmap = BitmapFactory.decodeFile(photoUri?.path)
-                    val dogRecognition = classifier.recognizeImage(bitmap).first()
-                    viewModel.getDogByMlId(dogRecognition.id)
-                }
-            })
-    }
-
-    private fun getOutputPhotoFile(): File {
-        val mediaDir = externalMediaDirs.firstOrNull()?.let {
-            File(it, resources.getString(R.string.app_name) + ".jpg").apply { mkdirs() }
-        }
-        return if (mediaDir != null && mediaDir.exists()) {
-            mediaDir
-        } else {
-            filesDir
-        }
-    }
-
     private fun startCamera() {
         val cameraProviderFuture =
             ProcessCameraProvider.getInstance(this)
@@ -216,7 +181,11 @@ class MainActivity : AppCompatActivity() {
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
             imageAnalysis.setAnalyzer(cameraExecutor) { imageProxy ->
-                val rotationDegrees = imageProxy.imageInfo.rotationDegrees
+                val bitmap = convertImageProxyToBitmap(imageProxy)
+                if (bitmap != null) {
+                    val dogRecognition = classifier.recognizeImage(bitmap).first()
+                    enabledTakePhotoButton(dogRecognition)
+                }
 
                 imageProxy.close()
             }
@@ -228,6 +197,49 @@ class MainActivity : AppCompatActivity() {
             )
         }, ContextCompat.getMainExecutor(this))
     }
+
+    private fun enabledTakePhotoButton(dogRecognition: DogRecognition) {
+        if (dogRecognition.confidence > 70.0) {
+            binding.takePhotoFab.alpha = 1f
+            binding.takePhotoFab.setOnClickListener {
+                viewModel.getDogByMlId(dogRecognition.id)
+            }
+        } else {
+            binding.takePhotoFab.alpha = 0.2f
+            binding.takePhotoFab.setOnClickListener(null)
+        }
+    }
+
+    @SuppressLint("UnsafeOptInUsageError")
+    private fun convertImageProxyToBitmap(imageProxy: ImageProxy): Bitmap? {
+        val image = imageProxy.image ?: return null
+
+        val yBuffer = image.planes[0].buffer // Y
+        val uBuffer = image.planes[1].buffer // U
+        val vBuffer = image.planes[2].buffer // V
+
+        val ySize = yBuffer.remaining()
+        val uSize = uBuffer.remaining()
+        val vSize = vBuffer.remaining()
+
+        val nv21 = ByteArray(ySize + uSize + vSize)
+
+        //U and V are swapped
+        yBuffer.get(nv21, 0, ySize)
+        vBuffer.get(nv21, ySize, vSize)
+        uBuffer.get(nv21, ySize + vSize, uSize)
+
+        val yuvImage = YuvImage(nv21, ImageFormat.NV21, image.width, image.height, null)
+        val out = ByteArrayOutputStream()
+        yuvImage.compressToJpeg(
+            Rect(0, 0, yuvImage.width, yuvImage.height), 100,
+            out
+        )
+        val imageBytes = out.toByteArray()
+
+        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
+    }
+
 
     private fun openDogListActivity() {
         startActivity(Intent(this, DogListActivity::class.java))
