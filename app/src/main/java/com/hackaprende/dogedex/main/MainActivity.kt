@@ -99,6 +99,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        viewModel.dogRecognition.observe(this) {
+            enabledTakePhotoButton(it)
+        }
+
         requestCameraPermission()
     }
 
@@ -111,7 +115,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        classifier = Classifier(
+        viewModel.setupClassifier(
             FileUtil.loadMappedFile(this@MainActivity, MODEL_PATH),
             FileUtil.loadLabels(this@MainActivity, LABEL_PATH)
         )
@@ -183,13 +187,7 @@ class MainActivity : AppCompatActivity() {
                 .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
                 .build()
             imageAnalysis.setAnalyzer(cameraExecutor) { imageProxy ->
-                val bitmap = convertImageProxyToBitmap(imageProxy)
-                if (bitmap != null) {
-                    val dogRecognition = classifier.recognizeImage(bitmap).first()
-                    enabledTakePhotoButton(dogRecognition)
-                }
-
-                imageProxy.close()
+                viewModel.recognizeImage(imageProxy)
             }
 
             // Bind use cases to camera
@@ -211,37 +209,6 @@ class MainActivity : AppCompatActivity() {
             binding.takePhotoFab.setOnClickListener(null)
         }
     }
-
-    @SuppressLint("UnsafeOptInUsageError")
-    private fun convertImageProxyToBitmap(imageProxy: ImageProxy): Bitmap? {
-        val image = imageProxy.image ?: return null
-
-        val yBuffer = image.planes[0].buffer // Y
-        val uBuffer = image.planes[1].buffer // U
-        val vBuffer = image.planes[2].buffer // V
-
-        val ySize = yBuffer.remaining()
-        val uSize = uBuffer.remaining()
-        val vSize = vBuffer.remaining()
-
-        val nv21 = ByteArray(ySize + uSize + vSize)
-
-        //U and V are swapped
-        yBuffer.get(nv21, 0, ySize)
-        vBuffer.get(nv21, ySize, vSize)
-        uBuffer.get(nv21, ySize + vSize, uSize)
-
-        val yuvImage = YuvImage(nv21, ImageFormat.NV21, image.width, image.height, null)
-        val out = ByteArrayOutputStream()
-        yuvImage.compressToJpeg(
-            Rect(0, 0, yuvImage.width, yuvImage.height), 100,
-            out
-        )
-        val imageBytes = out.toByteArray()
-
-        return BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.size)
-    }
-
 
     private fun openDogListActivity() {
         startActivity(Intent(this, DogListActivity::class.java))
