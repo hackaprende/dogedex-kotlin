@@ -3,10 +3,11 @@ package com.hackaprende.dogedex.dogdetail
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Divider
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,6 +54,16 @@ fun DogDetailScreen() {
             painter = rememberImagePainter(dog.imageUrl),
             contentDescription = dog.name
         )
+
+        FloatingActionButton(
+            modifier = Modifier.align(alignment = Alignment.BottomCenter),
+            onClick = { },
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Check,
+                contentDescription = ""
+            )
+        }
     }
 }
 
@@ -94,6 +105,8 @@ fun DogInformation(dog: Dog) {
                     fontSize = 32.sp,
                     fontWeight = FontWeight.Medium
                 )
+
+                LifeIcon()
 
                 Text(
                     stringResource(id = R.string.dog_life_expectancy_format, dog.lifeExpectancy),
@@ -168,6 +181,38 @@ fun DogInformation(dog: Dog) {
 }
 
 @Composable
+private fun LifeIcon() {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = 80.dp, end = 80.dp)
+    ) {
+        Surface(
+            shape = CircleShape,
+            color = colorResource(id = R.color.color_primary)
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_hearth_white),
+                contentDescription = null,
+                modifier = Modifier
+                    .width(24.dp)
+                    .height(24.dp)
+                    .padding(4.dp)
+            )
+        }
+
+        Surface(
+            shape = RoundedCornerShape(bottomEnd = 2.dp, topEnd = 2.dp),
+            modifier = Modifier
+                .width(200.dp)
+                .height(6.dp),
+            color = colorResource(id = R.color.color_primary)
+        ) { }
+    }
+}
+
+@Composable
 private fun VerticalDivider() {
     Divider(
         modifier = Modifier
@@ -225,6 +270,7 @@ private fun DogDataColumn(
     }
 }
 
+@ExperimentalCoilApi
 @Preview
 @Composable
 fun DogDetailScreenPreview() {
