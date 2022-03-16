@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -26,26 +27,13 @@ import com.hackaprende.dogedex.model.Dog
 
 @ExperimentalCoilApi
 @Composable
-fun DogDetailScreen() {
+fun DogDetailScreen(dog: Dog) {
     Box(
-        modifier = Modifier
+        modifier = Modifier.fillMaxSize()
             .background(colorResource(id = R.color.secondary_background))
             .padding(start = 8.dp, end = 8.dp, bottom = 16.dp),
         contentAlignment = Alignment.TopCenter
     ) {
-        val dog = Dog(
-            1L,
-            78,
-            "Pug",
-            "Herding",
-            "70",
-            "75",
-            "https://firebasestorage.googleapis.com/v0/b/perrodex-app.appspot.com/o/dog_details_images%2Fn02085620-chihuahua.png?alt=media&token=b58f2088-557f-4884-9763-6492457d8c68",
-            "10 - 12",
-            "Friendly, playful",
-            "5",
-            "6"
-        )
         DogInformation(dog)
         Image(
             modifier = Modifier
@@ -195,6 +183,7 @@ private fun LifeIcon() {
             Icon(
                 painter = painterResource(id = R.drawable.ic_hearth_white),
                 contentDescription = null,
+                tint = Color.White,
                 modifier = Modifier
                     .width(24.dp)
                     .height(24.dp)
@@ -274,5 +263,18 @@ private fun DogDataColumn(
 @Preview
 @Composable
 fun DogDetailScreenPreview() {
-    DogDetailScreen()
+    val dog = Dog(
+        1L,
+        78,
+        "Pug",
+        "Herding",
+        "70",
+        "75",
+        "https://firebasestorage.googleapis.com/v0/b/perrodex-app.appspot.com/o/dog_details_images%2Fn02085620-chihuahua.png?alt=media&token=b58f2088-557f-4884-9763-6492457d8c68",
+        "10 - 12",
+        "Friendly, playful",
+        "5",
+        "6"
+    )
+    DogDetailScreen(dog)
 }
