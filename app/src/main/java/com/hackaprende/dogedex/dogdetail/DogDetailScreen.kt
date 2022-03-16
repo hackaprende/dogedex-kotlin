@@ -18,9 +18,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.model.Dog
 
+@ExperimentalCoilApi
 @Composable
 fun DogDetailScreen() {
     Box(
@@ -29,11 +32,27 @@ fun DogDetailScreen() {
             .padding(start = 8.dp, end = 8.dp, bottom = 16.dp),
         contentAlignment = Alignment.TopCenter
     ) {
-        val dog = Dog(1L, 78, "Pug",
-            "Herding", "70", "75",
-        "https://firebasestorage.googleapis.com/v0/b/perrodex-app.appspot.com/o/dog_details_images%2Fn02085620-chihuahua.png?alt=media&token=b58f2088-557f-4884-9763-6492457d8c68", "10 - 12", "Friendly, playful",
-            "5", "6")
+        val dog = Dog(
+            1L,
+            78,
+            "Pug",
+            "Herding",
+            "70",
+            "75",
+            "https://firebasestorage.googleapis.com/v0/b/perrodex-app.appspot.com/o/dog_details_images%2Fn02085620-chihuahua.png?alt=media&token=b58f2088-557f-4884-9763-6492457d8c68",
+            "10 - 12",
+            "Friendly, playful",
+            "5",
+            "6"
+        )
         DogInformation(dog)
+        Image(
+            modifier = Modifier
+                .width(270.dp)
+                .padding(top = 80.dp),
+            painter = rememberImagePainter(dog.imageUrl),
+            contentDescription = dog.name
+        )
     }
 }
 
@@ -140,7 +159,8 @@ fun DogInformation(dog: Dog) {
                         modifier = Modifier.weight(1f),
                         stringResource(id = R.string.male),
                         dog.weightMale,
-                        dog.heightMale)
+                        dog.heightMale
+                    )
                 }
             }
         }
