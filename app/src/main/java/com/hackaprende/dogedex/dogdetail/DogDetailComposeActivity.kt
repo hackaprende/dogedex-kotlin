@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import coil.annotation.ExperimentalCoilApi
 import com.hackaprende.dogedex.R
+import com.hackaprende.dogedex.api.ApiResponseStatus
 import com.hackaprende.dogedex.dogdetail.ui.theme.DogedexTheme
 import com.hackaprende.dogedex.model.Dog
 
@@ -42,9 +43,27 @@ class DogDetailComposeActivity : ComponentActivity() {
 
         setContent {
             val status = viewModel.status
-            DogedexTheme {
-                DogDetailScreen(dog = dog, status.value)
+            if (status.value is ApiResponseStatus.Success) {
+                finish()
+            } else {
+                DogedexTheme {
+                    DogDetailScreen(
+                        dog = dog,
+                        status = status.value,
+                        onButtonClicked = {
+                            onButtonClicked(dog.id, isRecognition)
+                        }
+                    )
+                }
             }
+        }
+    }
+
+    private fun onButtonClicked(dogId: Long, isRecognition: Boolean) {
+        if (isRecognition) {
+            viewModel.addDogToUser(dogId)
+        } else {
+            finish()
         }
     }
 }

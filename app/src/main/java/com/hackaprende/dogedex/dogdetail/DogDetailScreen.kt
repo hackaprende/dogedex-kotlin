@@ -28,7 +28,11 @@ import com.hackaprende.dogedex.model.Dog
 
 @ExperimentalCoilApi
 @Composable
-fun DogDetailScreen(dog: Dog, status: ApiResponseStatus<Any>? = null) {
+fun DogDetailScreen(
+    dog: Dog,
+    status: ApiResponseStatus<Any>? = null,
+    onButtonClicked: () -> Unit,
+) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -47,7 +51,7 @@ fun DogDetailScreen(dog: Dog, status: ApiResponseStatus<Any>? = null) {
 
         FloatingActionButton(
             modifier = Modifier.align(alignment = Alignment.BottomCenter),
-            onClick = { },
+            onClick = { onButtonClicked() },
         ) {
             Icon(
                 imageVector = Icons.Filled.Check,
@@ -295,5 +299,5 @@ fun DogDetailScreenPreview() {
         "5",
         "6"
     )
-    DogDetailScreen(dog)
+    DogDetailScreen(dog, onButtonClicked = { })
 }

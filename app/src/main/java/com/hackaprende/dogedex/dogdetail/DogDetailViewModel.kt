@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 
 class DogDetailViewModel: ViewModel() {
 
-    var status = mutableStateOf<ApiResponseStatus<Any>?>(ApiResponseStatus.Loading())
+    var status = mutableStateOf<ApiResponseStatus<Any>?>(null)
         private set
 
     private val dogRepository = DogRepository()
