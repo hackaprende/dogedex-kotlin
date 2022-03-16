@@ -1,5 +1,6 @@
 package com.hackaprende.dogedex.dogdetail
 
+import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,20 +11,19 @@ import kotlinx.coroutines.launch
 
 class DogDetailViewModel: ViewModel() {
 
-    private val _status = MutableLiveData<ApiResponseStatus<Any>>()
-    val status: LiveData<ApiResponseStatus<Any>>
-        get() = _status
+    var status = mutableStateOf<ApiResponseStatus<Any>?>(ApiResponseStatus.Loading())
+        private set
 
     private val dogRepository = DogRepository()
 
     fun addDogToUser(dogId: Long) {
         viewModelScope.launch {
-            _status.value = ApiResponseStatus.Loading()
+            status.value = ApiResponseStatus.Loading()
             handleAddDogToUserResponseStatus(dogRepository.addDogToUser(dogId))
         }
     }
 
     private fun handleAddDogToUserResponseStatus(apiResponseStatus: ApiResponseStatus<Any>) {
-        _status.value = apiResponseStatus
+        status.value = apiResponseStatus
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -24,6 +25,8 @@ class DogDetailComposeActivity : ComponentActivity() {
         const val IS_RECOGNITION_KEY = "is_recognition"
     }
 
+    private val viewModel: DogDetailViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val dog = intent?.extras?.getParcelable<Dog>(DOG_KEY)
@@ -38,8 +41,9 @@ class DogDetailComposeActivity : ComponentActivity() {
         }
 
         setContent {
+            val status = viewModel.status
             DogedexTheme {
-                DogDetailScreen(dog = dog)
+                DogDetailScreen(dog = dog, status.value)
             }
         }
     }

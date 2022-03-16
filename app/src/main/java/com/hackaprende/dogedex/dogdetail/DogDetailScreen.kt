@@ -23,13 +23,15 @@ import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.hackaprende.dogedex.R
+import com.hackaprende.dogedex.api.ApiResponseStatus
 import com.hackaprende.dogedex.model.Dog
 
 @ExperimentalCoilApi
 @Composable
-fun DogDetailScreen(dog: Dog) {
+fun DogDetailScreen(dog: Dog, status: ApiResponseStatus<Any>? = null) {
     Box(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier
+            .fillMaxSize()
             .background(colorResource(id = R.color.secondary_background))
             .padding(start = 8.dp, end = 8.dp, bottom = 16.dp),
         contentAlignment = Alignment.TopCenter
@@ -52,6 +54,23 @@ fun DogDetailScreen(dog: Dog) {
                 contentDescription = ""
             )
         }
+
+        if (status is ApiResponseStatus.Loading) {
+            LoadingWheel()
+        }
+    }
+}
+
+@Composable
+fun LoadingWheel() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator(
+            color = Color.Red
+        )
     }
 }
 
