@@ -26,4 +26,8 @@ class DogDetailViewModel: ViewModel() {
     private fun handleAddDogToUserResponseStatus(apiResponseStatus: ApiResponseStatus<Any>) {
         status.value = apiResponseStatus
     }
+
+    fun resetApiResponseStatus() {
+        status.value = null
+    }
 }

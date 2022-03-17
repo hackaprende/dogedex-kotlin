@@ -52,11 +52,16 @@ class DogDetailComposeActivity : ComponentActivity() {
                         status = status.value,
                         onButtonClicked = {
                             onButtonClicked(dog.id, isRecognition)
-                        }
+                        },
+                        onErrorDialogDismiss = ::resetApiResponseStatus
                     )
                 }
             }
         }
+    }
+
+    private fun resetApiResponseStatus() {
+        viewModel.resetApiResponseStatus()
     }
 
     private fun onButtonClicked(dogId: Long, isRecognition: Boolean) {

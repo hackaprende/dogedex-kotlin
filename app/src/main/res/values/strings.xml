@@ -32,4 +32,6 @@
     <string name="camera_permission_rationale_dialog_title">Aceptame por favor</string>
     <string name="camera_permission_rejected_message">You need to accept camera permission to use camera</string>
     <string name="title_activity_dog_detail_compose">DogDetailComposeActivity</string>
+    <string name="error_dialog_title">Oops, something happened!</string>
+    <string name="try_again">Try again</string>
 </resources>
