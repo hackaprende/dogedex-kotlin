@@ -20,9 +20,11 @@ import com.hackaprende.dogedex.composables.AuthField
 import com.hackaprende.dogedex.composables.BackNavigationIcon
 
 @Composable
-fun SignUpScreen() {
+fun SignUpScreen(
+    onNavigationIconClick: () -> Unit
+) {
     Scaffold(
-        topBar = { SignUpScreenToolbar() }
+        topBar = { SignUpScreenToolbar(onNavigationIconClick) }
     ) {
         Content()
     }
@@ -87,12 +89,14 @@ private fun Content() {
 }
 
 @Composable
-private fun SignUpScreenToolbar() {
+private fun SignUpScreenToolbar(
+    onNavigationIconClick: () -> Unit
+) {
     TopAppBar(
         title = { Text(stringResource(R.string.app_name)) },
         backgroundColor = Color.Red,
         contentColor = Color.White,
-        navigationIcon = { BackNavigationIcon { } }
+        navigationIcon = { BackNavigationIcon { onNavigationIconClick() } }
     )
 }
 
