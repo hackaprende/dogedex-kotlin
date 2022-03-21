@@ -28,6 +28,9 @@ import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.hackaprende.dogedex.R
+import com.hackaprende.dogedex.api.ApiResponseStatus
+import com.hackaprende.dogedex.composables.ErrorDialog
+import com.hackaprende.dogedex.composables.LoadingWheel
 import com.hackaprende.dogedex.model.Dog
 
 private const val GRID_SPAN_COUNT = 3
@@ -39,7 +42,9 @@ private const val GRID_SPAN_COUNT = 3
 fun DogListScreen(
     onNavigationIconClick: () -> Unit,
     dogList: List<Dog>,
-    onDogClicked: (Dog) -> Unit
+    onDogClicked: (Dog) -> Unit,
+    status: ApiResponseStatus<Any>? = null,
+    onErrorDialogDismiss: () -> Unit,
 ) {
     Scaffold(
         topBar = { DogListScreenTopBar(onNavigationIconClick) }
@@ -52,6 +57,12 @@ fun DogListScreen(
                 }
             }
         )
+    }
+
+    if (status is ApiResponseStatus.Loading) {
+        LoadingWheel()
+    } else if (status is ApiResponseStatus.Error) {
+        ErrorDialog(status.messageId, onErrorDialogDismiss)
     }
 }
 
