@@ -29,6 +29,7 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.api.ApiResponseStatus
+import com.hackaprende.dogedex.composables.BackNavigationIcon
 import com.hackaprende.dogedex.composables.ErrorDialog
 import com.hackaprende.dogedex.composables.LoadingWheel
 import com.hackaprende.dogedex.model.Dog
@@ -76,18 +77,6 @@ fun DogListScreenTopBar(
         contentColor = Color.Black,
         navigationIcon = { BackNavigationIcon(onClick) }
     )
-}
-
-@Composable
-fun BackNavigationIcon(
-    onClick: () -> Unit
-) {
-    IconButton(onClick = onClick) {
-        Icon(
-            painter = rememberVectorPainter(image = Icons.Sharp.ArrowBack),
-            contentDescription = null
-        )
-    }
 }
 
 @ExperimentalCoilApi

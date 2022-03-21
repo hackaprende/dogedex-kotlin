@@ -2,22 +2,17 @@ package com.hackaprende.dogedex.auth
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.findNavController
 import coil.annotation.ExperimentalCoilApi
-import com.hackaprende.dogedex.main.MainActivity
 import com.hackaprende.dogedex.R
-import com.hackaprende.dogedex.api.ApiResponseStatus
-import com.hackaprende.dogedex.databinding.ActivityLoginBinding
 import com.hackaprende.dogedex.dogdetail.ui.theme.DogedexTheme
-import com.hackaprende.dogedex.model.User
+import com.hackaprende.dogedex.main.MainActivity
 
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
@@ -31,7 +26,7 @@ class LoginActivity : ComponentActivity(), LoginFragment.LoginFragmentActions,
         super.onCreate(savedInstanceState)
         setContent {
             DogedexTheme {
-                LoginScreen()
+                SignUpScreen()
             }
         }
         /*val binding = ActivityLoginBinding.inflate(layoutInflater)
