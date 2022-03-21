@@ -8,6 +8,8 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.recyclerview.widget.GridLayoutManager
 import coil.annotation.ExperimentalCoilApi
 import com.hackaprende.dogedex.api.ApiResponseStatus
@@ -16,8 +18,8 @@ import com.hackaprende.dogedex.dogdetail.DogDetailComposeActivity
 import com.hackaprende.dogedex.dogdetail.ui.theme.DogedexTheme
 import com.hackaprende.dogedex.model.Dog
 
-private const val GRID_SPAN_COUNT = 3
-
+@ExperimentalMaterialApi
+@ExperimentalFoundationApi
 @ExperimentalCoilApi
 class DogListActivity : ComponentActivity() {
 
