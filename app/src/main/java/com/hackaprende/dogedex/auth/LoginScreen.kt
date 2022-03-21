@@ -45,11 +45,19 @@ fun Content() {
             ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        OutlinedTextField(
-            value = email.value,
-            onValueChange = { email.value = it },
+        AuthField(
+            email = email.value,
+            onTextChanged = { email.value = it }
         )
     }
+}
+
+@Composable
+fun AuthField(email: String, onTextChanged: (String) -> Unit) {
+    OutlinedTextField(
+        value = email,
+        onValueChange = { onTextChanged(it) },
+    )
 }
 
 @Composable
