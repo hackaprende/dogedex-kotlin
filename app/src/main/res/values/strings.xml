@@ -34,4 +34,5 @@
     <string name="title_activity_dog_detail_compose">DogDetailComposeActivity</string>
     <string name="error_dialog_title">Oops, something happened!</string>
     <string name="try_again">Try again</string>
+    <string name="my_dog_collection">My dog collection</string>
 </resources>
