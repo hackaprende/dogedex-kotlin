@@ -24,12 +24,14 @@ import com.hackaprende.dogedex.composables.AuthField
 
 @Composable
 fun LoginScreen(
+    onLoginButtonClick: (String, String) -> Unit,
     onRegisterButtonClick: () -> Unit,
 ) {
     Scaffold(
         topBar = { LoginScreenToolbar() }
     ) {
         Content(
+            onLoginButtonClick = onLoginButtonClick,
             onRegisterButtonClick = onRegisterButtonClick
         )
     }
@@ -37,6 +39,7 @@ fun LoginScreen(
 
 @Composable
 private fun Content(
+    onLoginButtonClick: (String, String) -> Unit,
     onRegisterButtonClick: () -> Unit,
 ) {
     val email = remember { mutableStateOf("") }
@@ -74,7 +77,7 @@ private fun Content(
         Button(modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp),
-            onClick = {  }) {
+            onClick = { onLoginButtonClick(email.value, password.value) }) {
             Text(
                 stringResource(R.string.login),
                 textAlign = TextAlign.Center,

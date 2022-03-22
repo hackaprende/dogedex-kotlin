@@ -21,17 +21,22 @@ import com.hackaprende.dogedex.composables.BackNavigationIcon
 
 @Composable
 fun SignUpScreen(
-    onNavigationIconClick: () -> Unit
+    onSignUpButtonClick: (email: String, password: String, passwordConfirmation: String) -> Unit,
+    onNavigationIconClick: () -> Unit,
 ) {
     Scaffold(
         topBar = { SignUpScreenToolbar(onNavigationIconClick) }
     ) {
-        Content()
+        Content(
+            onSignUpButtonClick = onSignUpButtonClick
+        )
     }
 }
 
 @Composable
-private fun Content() {
+private fun Content(
+    onSignUpButtonClick: (email: String, password: String, passwordConfirmation: String) -> Unit,
+) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
     val confirmPassword = remember { mutableStateOf("") }
@@ -78,7 +83,9 @@ private fun Content() {
         Button(modifier = Modifier
             .fillMaxWidth()
             .padding(top = 16.dp),
-            onClick = {  }) {
+            onClick = {
+                onSignUpButtonClick(email.value, password.value, confirmPassword.value)
+            }) {
             Text(
                 stringResource(R.string.sign_up),
                 textAlign = TextAlign.Center,
