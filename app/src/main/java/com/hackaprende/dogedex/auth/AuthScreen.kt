@@ -18,6 +18,7 @@ fun AuthScreen(
     onLoginButtonClick: (String, String) -> Unit,
     onSignUpButtonClick: (email: String, password: String, passwordConfirmation: String) -> Unit,
     onErrorDialogDismiss: () -> Unit,
+    authViewModel: AuthViewModel,
 ) {
     val navController = rememberNavController()
 
@@ -25,6 +26,7 @@ fun AuthScreen(
         navController = navController,
         onLoginButtonClick = onLoginButtonClick,
         onSignUpButtonClick = onSignUpButtonClick,
+        authViewModel = authViewModel,
     )
 
     if (status is ApiResponseStatus.Loading) {
@@ -39,6 +41,7 @@ private fun AuthNavHost(
     navController: NavHostController,
     onLoginButtonClick: (String, String) -> Unit,
     onSignUpButtonClick: (email: String, password: String, passwordConfirmation: String) -> Unit,
+    authViewModel: AuthViewModel,
 ) {
     NavHost(
         navController = navController,
@@ -49,14 +52,16 @@ private fun AuthNavHost(
                 onLoginButtonClick = onLoginButtonClick,
                 onRegisterButtonClick = {
                     navController.navigate(route = SignUpScreenDestination)
-                }
+                },
+                authViewModel = authViewModel,
             )
         }
 
         composable(route = SignUpScreenDestination) {
             SignUpScreen(
                 onSignUpButtonClick = onSignUpButtonClick,
-                onNavigationIconClick = { navController.navigateUp() }
+                onNavigationIconClick = { navController.navigateUp() },
+                authViewModel = authViewModel,
             )
         }
     }

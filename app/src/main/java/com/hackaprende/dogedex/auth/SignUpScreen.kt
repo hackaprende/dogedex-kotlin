@@ -23,19 +23,29 @@ import com.hackaprende.dogedex.composables.BackNavigationIcon
 fun SignUpScreen(
     onSignUpButtonClick: (email: String, password: String, passwordConfirmation: String) -> Unit,
     onNavigationIconClick: () -> Unit,
+    authViewModel: AuthViewModel,
 ) {
     Scaffold(
-        topBar = { SignUpScreenToolbar(onNavigationIconClick) }
+        topBar = {
+            SignUpScreenToolbar {
+                onNavigationIconClick()
+                authViewModel.resetErrors()
+            }
+        }
     ) {
         Content(
-            onSignUpButtonClick = onSignUpButtonClick
+            resetFieldErrors = { authViewModel.resetErrors() },
+            onSignUpButtonClick = onSignUpButtonClick,
+            authViewModel = authViewModel,
         )
     }
 }
 
 @Composable
 private fun Content(
+    resetFieldErrors: () -> Unit,
     onSignUpButtonClick: (email: String, password: String, passwordConfirmation: String) -> Unit,
+    authViewModel: AuthViewModel,
 ) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -57,7 +67,11 @@ private fun Content(
             modifier = Modifier
                 .fillMaxWidth(),
             email = email.value,
-            onTextChanged = { email.value = it }
+            onTextChanged = {
+                email.value = it
+                resetFieldErrors()
+            },
+            errorMessageId = authViewModel.emailError.value
         )
 
         AuthField(
@@ -66,8 +80,12 @@ private fun Content(
                 .fillMaxWidth()
                 .padding(top = 16.dp),
             email = password.value,
-            onTextChanged = { password.value = it },
-            visualTransformation = PasswordVisualTransformation()
+            onTextChanged = {
+                password.value = it
+                resetFieldErrors()
+            },
+            visualTransformation = PasswordVisualTransformation(),
+            errorMessageId = authViewModel.passwordError.value,
         )
 
         AuthField(
@@ -76,8 +94,12 @@ private fun Content(
                 .fillMaxWidth()
                 .padding(top = 16.dp),
             email = confirmPassword.value,
-            onTextChanged = { confirmPassword.value = it },
-            visualTransformation = PasswordVisualTransformation()
+            onTextChanged = {
+                confirmPassword.value = it
+                resetFieldErrors()
+            },
+            visualTransformation = PasswordVisualTransformation(),
+            errorMessageId = authViewModel.confirmPasswordError.value,
         )
 
         Button(modifier = Modifier

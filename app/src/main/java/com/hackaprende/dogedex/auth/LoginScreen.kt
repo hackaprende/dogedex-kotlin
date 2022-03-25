@@ -26,13 +26,19 @@ import com.hackaprende.dogedex.composables.AuthField
 fun LoginScreen(
     onLoginButtonClick: (String, String) -> Unit,
     onRegisterButtonClick: () -> Unit,
+    authViewModel: AuthViewModel,
 ) {
     Scaffold(
         topBar = { LoginScreenToolbar() }
     ) {
         Content(
             onLoginButtonClick = onLoginButtonClick,
-            onRegisterButtonClick = onRegisterButtonClick
+            onRegisterButtonClick = {
+                onRegisterButtonClick()
+                authViewModel.resetErrors()
+            },
+            resetFieldErrors = { authViewModel.resetErrors() },
+            authViewModel = authViewModel
         )
     }
 }
@@ -41,6 +47,8 @@ fun LoginScreen(
 private fun Content(
     onLoginButtonClick: (String, String) -> Unit,
     onRegisterButtonClick: () -> Unit,
+    resetFieldErrors: () -> Unit,
+    authViewModel: AuthViewModel,
 ) {
     val email = remember { mutableStateOf("") }
     val password = remember { mutableStateOf("") }
@@ -61,7 +69,11 @@ private fun Content(
             modifier = Modifier
                 .fillMaxWidth(),
             email = email.value,
-            onTextChanged = { email.value = it }
+            onTextChanged = {
+                email.value = it
+                resetFieldErrors()
+            },
+            errorMessageId = authViewModel.emailError.value,
         )
 
         AuthField(
@@ -70,8 +82,12 @@ private fun Content(
                 .fillMaxWidth()
                 .padding(top = 16.dp),
             email = password.value,
-            onTextChanged = { password.value = it },
-            visualTransformation = PasswordVisualTransformation()
+            onTextChanged = {
+                password.value = it
+                resetFieldErrors()
+            },
+            visualTransformation = PasswordVisualTransformation(),
+            errorMessageId = authViewModel.passwordError.value,
         )
 
         Button(modifier = Modifier
