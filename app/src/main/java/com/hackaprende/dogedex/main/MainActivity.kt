@@ -34,6 +34,7 @@ import com.hackaprende.dogedex.machinelearning.DogRecognition
 import com.hackaprende.dogedex.model.Dog
 import com.hackaprende.dogedex.model.User
 import com.hackaprende.dogedex.settings.SettingsActivity
+import dagger.hilt.android.AndroidEntryPoint
 import org.tensorflow.lite.support.common.FileUtil
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -41,6 +42,7 @@ import java.util.concurrent.Executors
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
 @ExperimentalCoilApi
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val requestPermissionLauncher =
         registerForActivityResult(
