@@ -11,10 +11,12 @@ import coil.annotation.ExperimentalCoilApi
 import com.hackaprende.dogedex.dogdetail.ui.theme.DogedexTheme
 import com.hackaprende.dogedex.main.MainActivity
 import com.hackaprende.dogedex.model.User
+import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
+@AndroidEntryPoint
 class LoginActivity : ComponentActivity() {
 
     private val viewModel: AuthViewModel by viewModels()
