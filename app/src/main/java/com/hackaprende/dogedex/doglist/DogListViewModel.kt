@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DogListViewModel @Inject constructor(
-    private val dogRepository: DogRepository,
+    private val dogRepository: DogTasks,
 ): ViewModel() {
 
     var dogList = mutableStateOf<List<Dog>>(listOf())

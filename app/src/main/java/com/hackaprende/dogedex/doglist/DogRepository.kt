@@ -13,9 +13,15 @@ import kotlinx.coroutines.withContext
 import java.lang.Exception
 import javax.inject.Inject
 
-class DogRepository @Inject constructor() {
+interface DogTasks {
+    suspend fun getDogCollection(): ApiResponseStatus<List<Dog>>
+    suspend fun addDogToUser(dogId: Long): ApiResponseStatus<Any>
+    suspend fun getDogByMlId(mlDogId: String): ApiResponseStatus<Dog>
+}
 
-    suspend fun getDogCollection(): ApiResponseStatus<List<Dog>> {
+class DogRepository @Inject constructor() : DogTasks {
+
+    override suspend fun getDogCollection(): ApiResponseStatus<List<Dog>> {
         return withContext(Dispatchers.IO) {
             val allDogsListDeferred = async { downloadDogs() }
             val userDogsListDeferred = async { getUserDogs() }
@@ -64,7 +70,7 @@ class DogRepository @Inject constructor() {
         dogDTOMapper.fromDogDTOListToDogDomainList(dogDTOList)
     }
 
-    suspend fun addDogToUser(dogId: Long): ApiResponseStatus<Any> = makeNetworkCall {
+    override suspend fun addDogToUser(dogId: Long): ApiResponseStatus<Any> = makeNetworkCall {
         val addDogToUserDTO = AddDogToUserDTO(dogId)
         val defaultResponse = retrofitService.addDogToUser(addDogToUserDTO)
 
@@ -73,7 +79,7 @@ class DogRepository @Inject constructor() {
         }
     }
 
-    suspend fun getDogByMlId(mlDogId: String): ApiResponseStatus<Dog> = makeNetworkCall {
+    override suspend fun getDogByMlId(mlDogId: String): ApiResponseStatus<Dog> = makeNetworkCall {
         val response = retrofitService.getDogByMlId(mlDogId)
 
         if (!response.isSuccess) {
