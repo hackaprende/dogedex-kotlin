@@ -7,6 +7,8 @@ import com.hackaprende.dogedex.api.ApiService
 import com.hackaprende.dogedex.api.dto.AddDogToUserDTO
 import com.hackaprende.dogedex.api.dto.DogDTOMapper
 import com.hackaprende.dogedex.api.makeNetworkCall
+import com.hackaprende.dogedex.di.DispatchersModule
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.withContext
@@ -20,11 +22,12 @@ interface DogTasks {
 }
 
 class DogRepository @Inject constructor(
-    private val apiService: ApiService
+    private val apiService: ApiService,
+    private val dispatcher: CoroutineDispatcher,
 ) : DogTasks {
 
     override suspend fun getDogCollection(): ApiResponseStatus<List<Dog>> {
-        return withContext(Dispatchers.IO) {
+        return withContext(dispatcher) {
             val allDogsListDeferred = async { downloadDogs() }
             val userDogsListDeferred = async { getUserDogs() }
 
