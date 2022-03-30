@@ -10,6 +10,7 @@ import com.hackaprende.dogedex.doglist.DogRepository
 import com.hackaprende.dogedex.doglist.DogTasks
 import com.hackaprende.dogedex.machinelearning.Classifier
 import com.hackaprende.dogedex.machinelearning.ClassifierRepository
+import com.hackaprende.dogedex.machinelearning.ClassifierTasks
 import com.hackaprende.dogedex.machinelearning.DogRecognition
 import com.hackaprende.dogedex.model.Dog
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val dogRepository: DogTasks
+    private val dogRepository: DogTasks,
+    private val classifierRepository: ClassifierTasks,
 ): ViewModel() {
 
     private val _dog = MutableLiveData<Dog>()
@@ -33,14 +35,6 @@ class MainViewModel @Inject constructor(
     private val _dogRecognition = MutableLiveData<DogRecognition>()
     val dogRecognition: LiveData<DogRecognition>
         get() = _dogRecognition
-
-    private lateinit var classifierRepository: ClassifierRepository
-
-    fun setupClassifier(tfLiteModel: MappedByteBuffer,
-                        labels: List<String>) {
-        val classifier = Classifier(tfLiteModel, labels)
-        classifierRepository = ClassifierRepository(classifier)
-    }
 
     fun recognizeImage(imageProxy: ImageProxy) {
         viewModelScope.launch {
