@@ -1,4 +1,4 @@
-package com.hackaprende.dogedex
+package com.hackaprende.dogedex.viewmodel
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

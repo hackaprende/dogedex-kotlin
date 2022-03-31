@@ -1,5 +1,6 @@
-package com.hackaprende.dogedex
+package com.hackaprende.dogedex.viewmodel
 
+import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.api.ApiResponseStatus
 import com.hackaprende.dogedex.auth.AuthTasks
 import com.hackaprende.dogedex.auth.AuthViewModel
@@ -42,12 +43,14 @@ class AuthViewModelTest {
 
         viewModel.login("", "test1234")
 
-        assertEquals(R.string.email_is_not_valid,
+        assertEquals(
+            R.string.email_is_not_valid,
             viewModel.emailError.value)
 
         viewModel.login("hackaprende@gmail.com", "")
 
-        assertEquals(R.string.password_must_not_be_empty,
+        assertEquals(
+            R.string.password_must_not_be_empty,
             viewModel.passwordError.value)
     }
 

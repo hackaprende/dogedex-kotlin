@@ -1,4 +1,4 @@
-package com.hackaprende.dogedex
+package com.hackaprende.dogedex.viewmodel
 
 import com.hackaprende.dogedex.api.ApiResponseStatus
 import com.hackaprende.dogedex.doglist.DogListViewModel
