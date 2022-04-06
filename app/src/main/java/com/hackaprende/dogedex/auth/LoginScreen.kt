@@ -15,6 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -74,6 +76,8 @@ private fun Content(
                 resetFieldErrors()
             },
             errorMessageId = authViewModel.emailError.value,
+            errorSemantic = "email-field-error",
+            fieldSemantic = "email-field",
         )
 
         AuthField(
@@ -88,11 +92,14 @@ private fun Content(
             },
             visualTransformation = PasswordVisualTransformation(),
             errorMessageId = authViewModel.passwordError.value,
+            errorSemantic = "password-field-error",
+            fieldSemantic = "password-field",
         )
 
         Button(modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 16.dp),
+            .padding(top = 16.dp)
+            .semantics { testTag = "login-button" },
             onClick = { onLoginButtonClick(email.value, password.value) }) {
             Text(
                 stringResource(R.string.login),
@@ -113,7 +120,8 @@ private fun Content(
             modifier = Modifier
                 .clickable(enabled = true, onClick = { onRegisterButtonClick() })
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(16.dp)
+                .semantics { testTag = "login-screen-register-button" },
             text = stringResource(R.string.register),
             textAlign = TextAlign.Center,
             fontWeight = FontWeight.Medium

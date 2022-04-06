@@ -7,6 +7,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.text.input.VisualTransformation
 
 @Composable
@@ -15,18 +17,23 @@ fun AuthField(
     email: String,
     onTextChanged: (String) -> Unit,
     modifier: Modifier = Modifier,
+    errorSemantic: String = "",
+    fieldSemantic: String = "",
     errorMessageId: Int? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
 ) {
     Column(modifier = modifier,) {
         if (errorMessageId != null) {
             Text(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .semantics { testTag = errorSemantic },
                 text = stringResource(id = errorMessageId)
             )
         }
         OutlinedTextField(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth()
+                .semantics { testTag = fieldSemantic },
             label = { Text(label) },
             value = email,
             onValueChange = { onTextChanged(it) },
