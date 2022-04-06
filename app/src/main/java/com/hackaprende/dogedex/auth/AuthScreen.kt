@@ -1,6 +1,7 @@
 package com.hackaprende.dogedex.auth
 
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -14,25 +15,31 @@ import com.hackaprende.dogedex.model.User
 
 @Composable
 fun AuthScreen(
-    status: ApiResponseStatus<User>?,
-    onLoginButtonClick: (String, String) -> Unit,
-    onSignUpButtonClick: (email: String, password: String, passwordConfirmation: String) -> Unit,
-    onErrorDialogDismiss: () -> Unit,
-    authViewModel: AuthViewModel,
+    onUserLoggedIn: (User) -> Unit,
+    authViewModel: AuthViewModel = hiltViewModel(),
 ) {
+    val user = authViewModel.user
+
+    val userValue = user.value
+    if (userValue != null) {
+        onUserLoggedIn(userValue)
+    }
+
     val navController = rememberNavController()
+    val status = authViewModel.status.value
 
     AuthNavHost(
         navController = navController,
-        onLoginButtonClick = onLoginButtonClick,
-        onSignUpButtonClick = onSignUpButtonClick,
+        onLoginButtonClick = { email, password -> authViewModel.login(email, password) },
+        onSignUpButtonClick = { email, password, confirmPassword ->
+            authViewModel.signUp(email, password, confirmPassword) },
         authViewModel = authViewModel,
     )
 
     if (status is ApiResponseStatus.Loading) {
         LoadingWheel()
     } else if (status is ApiResponseStatus.Error) {
-        ErrorDialog(status.messageId, onErrorDialogDismiss)
+        ErrorDialog(status.messageId) { authViewModel.resetApiResponseStatus() }
     }
 }
 
