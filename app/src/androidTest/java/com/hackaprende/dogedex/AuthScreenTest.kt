@@ -1,6 +1,5 @@
 package com.hackaprende.dogedex
 
-import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
