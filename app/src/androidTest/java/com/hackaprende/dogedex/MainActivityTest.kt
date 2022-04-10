@@ -3,22 +3,27 @@ package com.hackaprende.dogedex
 import androidx.camera.core.ImageProxy
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.compose.ui.test.onNodeWithTag
+import androidx.compose.ui.test.onNodeWithText
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.IdlingRegistry
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.platform.app.InstrumentationRegistry
 import coil.annotation.ExperimentalCoilApi
 import com.hackaprende.dogedex.api.ApiResponseStatus
 import com.hackaprende.dogedex.di.ClassifierModule
 import com.hackaprende.dogedex.di.DogTasksModule
-import com.hackaprende.dogedex.doglist.DogRepository
 import com.hackaprende.dogedex.doglist.DogTasks
-import com.hackaprende.dogedex.machinelearning.ClassifierRepository
 import com.hackaprende.dogedex.machinelearning.ClassifierTasks
 import com.hackaprende.dogedex.machinelearning.DogRecognition
 import com.hackaprende.dogedex.main.MainActivity
 import com.hackaprende.dogedex.model.Dog
+import com.hackaprende.dogedex.testutils.EspressoIdlingResource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -26,6 +31,8 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import dagger.hilt.components.SingletonComponent
+import org.junit.After
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
@@ -41,6 +48,9 @@ class MainActivityTest {
     var hiltRule = HiltAndroidRule(this)
 
     @get:Rule(order = 1)
+    val composeTestRule = createComposeRule()
+
+    @get:Rule(order = 2)
     val activityScenarioRule = ActivityScenarioRule(MainActivity::class.java)
 
     class FakeDogRepository @Inject constructor(): DogTasks {
@@ -66,7 +76,13 @@ class MainActivityTest {
         }
 
         override suspend fun getDogByMlId(mlDogId: String): ApiResponseStatus<Dog> {
-            TODO("Not yet implemented")
+            return ApiResponseStatus.Success(
+                Dog(
+                    89, 70, "Chow chow", "", "", "",
+                    "", "", "", "", "",
+                    inCollection = true
+                )
+            )
         }
     }
 
@@ -82,7 +98,7 @@ class MainActivityTest {
 
     class FakeClassifierRepository @Inject constructor(): ClassifierTasks {
         override suspend fun recognizeImage(imageProxy: ImageProxy): DogRecognition {
-            TODO("Not yet implemented")
+            return DogRecognition("ajsncuinasdc", 100.0f)
         }
     }
 
@@ -95,10 +111,35 @@ class MainActivityTest {
         ): ClassifierTasks
     }
 
+    @Before
+    fun registerIdlingResource() {
+        IdlingRegistry.getInstance().register(EspressoIdlingResource.idlingResource)
+    }
+
+    @After
+    fun unregisterIdlingResource() {
+        IdlingRegistry.getInstance().unregister(EspressoIdlingResource.idlingResource)
+    }
+
     @Test
     fun showAllFab() {
         onView(withId(R.id.take_photo_fab)).check(matches(isDisplayed()))
         onView(withId(R.id.dog_list_fab)).check(matches(isDisplayed()))
         onView(withId(R.id.settings_fab)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun dogListOpensWhenClickingButton() {
+        onView(withId(R.id.dog_list_fab)).perform(click())
+
+        val context = InstrumentationRegistry.getInstrumentation().targetContext
+        val string = context.getString(R.string.my_dog_collection)
+        composeTestRule.onNodeWithText(string).assertIsDisplayed()
+    }
+
+    @Test
+    fun whenRecognizingDogDetailsScreenOpens() {
+        onView(withId(R.id.take_photo_fab)).perform(click())
+        composeTestRule.onNodeWithTag(testTag = "close-details-screen-fab").assertIsDisplayed()
     }
 }

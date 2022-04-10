@@ -101,6 +101,9 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.38.1"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
 
+    // Espresso idling resources
+    implementation 'androidx.test.espresso:espresso-idling-resource:3.4.0'
+
     // Retrofit y Moshi
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
