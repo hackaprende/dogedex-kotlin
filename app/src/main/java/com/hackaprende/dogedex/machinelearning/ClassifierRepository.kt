@@ -9,19 +9,19 @@ import java.io.ByteArrayOutputStream
 import javax.inject.Inject
 
 interface ClassifierTasks {
-    suspend fun recognizeImage(imageProxy: ImageProxy): DogRecognition
+    suspend fun recognizeImage(imageProxy: ImageProxy): List<DogRecognition>
 }
 
 class ClassifierRepository @Inject constructor(private val classifier: Classifier) :
     ClassifierTasks {
 
-    override suspend fun recognizeImage(imageProxy: ImageProxy): DogRecognition =
+    override suspend fun recognizeImage(imageProxy: ImageProxy): List<DogRecognition> =
         withContext(Dispatchers.IO) {
             val bitmap = convertImageProxyToBitmap(imageProxy)
             if (bitmap == null) {
-                DogRecognition("", 0f)
+                listOf(DogRecognition("", 0f))
             } else {
-                classifier.recognizeImage(bitmap).first()
+                classifier.recognizeImage(bitmap).subList(0, 4)
             }
         }
 

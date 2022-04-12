@@ -24,6 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class DogDetailComposeActivity : ComponentActivity() {
     companion object {
         const val DOG_KEY = "dog"
+        const val MOST_PROBABLE_DOGS_IDS = "most_probable_dogs_ids"
         const val IS_RECOGNITION_KEY = "is_recognition"
     }
 
@@ -32,6 +33,7 @@ class DogDetailComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val dog = intent?.extras?.getParcelable<Dog>(DOG_KEY)
+        val probableDogsIds = intent?.extras?.getStringArrayList(MOST_PROBABLE_DOGS_IDS) ?: mutableListOf()
         val isRecognition = intent
             ?.extras
             ?.getBoolean(IS_RECOGNITION_KEY, false) ?: false
