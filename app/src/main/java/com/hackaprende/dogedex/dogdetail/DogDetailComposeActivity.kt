@@ -33,7 +33,7 @@ class DogDetailComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val dog = intent?.extras?.getParcelable<Dog>(DOG_KEY)
-        val probableDogsIds = intent?.extras?.getStringArrayList(MOST_PROBABLE_DOGS_IDS) ?: mutableListOf()
+        val probableDogsIds = intent?.extras?.getStringArrayList(MOST_PROBABLE_DOGS_IDS) ?: listOf()
         val isRecognition = intent
             ?.extras
             ?.getBoolean(IS_RECOGNITION_KEY, false) ?: false
@@ -52,6 +52,8 @@ class DogDetailComposeActivity : ComponentActivity() {
                 DogedexTheme {
                     DogDetailScreen(
                         dog = dog,
+                        probableDogsIds = probableDogsIds,
+                        isRecognition = isRecognition,
                         status = status.value,
                         onButtonClicked = {
                             onButtonClicked(dog.id, isRecognition)

@@ -9,6 +9,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,6 +24,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.hackaprende.dogedex.R
@@ -34,10 +37,15 @@ import com.hackaprende.dogedex.model.Dog
 @Composable
 fun DogDetailScreen(
     dog: Dog,
+    probableDogsIds: List<String>,
+    isRecognition: Boolean,
     status: ApiResponseStatus<Any>? = null,
     onButtonClicked: () -> Unit,
     onErrorDialogDismiss: () -> Unit,
+    detailViewModel: DogDetailViewModel = hiltViewModel()
 ) {
+    val probableDogsDialogEnabled = remember { mutableStateOf(false) }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -45,7 +53,9 @@ fun DogDetailScreen(
             .padding(start = 8.dp, end = 8.dp, bottom = 16.dp),
         contentAlignment = Alignment.TopCenter
     ) {
-        DogInformation(dog)
+        DogInformation(dog, isRecognition) {
+            probableDogsDialogEnabled.value = true
+        }
         Image(
             modifier = Modifier
                 .width(270.dp)
@@ -71,11 +81,25 @@ fun DogDetailScreen(
         } else if (status is ApiResponseStatus.Error) {
             ErrorDialog(status.messageId, onErrorDialogDismiss)
         }
+
+        if (probableDogsDialogEnabled.value) {
+            MostProbableDogsDialog(
+                getFakeDogs(),
+                onShowMostProbableDogsDialogDismiss = {
+                    probableDogsDialogEnabled.value = false
+                },
+                onItemClicked = { }
+            )
+        }
     }
 }
 
 @Composable
-fun DogInformation(dog: Dog) {
+fun DogInformation(
+    dog: Dog,
+    isRecognition: Boolean,
+    onProbableDogsButtonClick: () -> Unit,
+) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -130,6 +154,19 @@ fun DogInformation(dog: Dog) {
                     fontWeight = FontWeight.Medium,
                     modifier = Modifier.padding(top = 8.dp)
                 )
+
+                if (isRecognition) {
+                    Button(
+                        modifier = Modifier.padding(16.dp),
+                        onClick = { onProbableDogsButtonClick() },
+                    ) {
+                        Text(
+                            text = stringResource(id = R.string.not_your_dog_button),
+                            textAlign = TextAlign.Center,
+                            fontSize = 18.sp,
+                        )
+                    }
+                }
 
                 Divider(
                     modifier = Modifier
@@ -295,5 +332,6 @@ fun DogDetailScreenPreview() {
         "5",
         "6"
     )
-    DogDetailScreen(dog, onButtonClicked = { }, onErrorDialogDismiss = { })
+    DogDetailScreen(dog, probableDogsIds = listOf(), isRecognition = false,
+        onButtonClicked = { }, onErrorDialogDismiss = { })
 }

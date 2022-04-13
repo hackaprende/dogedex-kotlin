@@ -35,4 +35,7 @@
     <string name="error_dialog_title">Oops, something happened!</string>
     <string name="try_again">Try again</string>
     <string name="my_dog_collection">My dog collection</string>
+    <string name="not_your_dog_button">Not your dog? Tap to see other probable dogs</string>
+    <string name="other_probable_dogs">Other probable dogs</string>
+    <string name="dismiss">My dog is not here</string>
 </resources>
