@@ -36,15 +36,17 @@ import com.hackaprende.dogedex.model.Dog
 @ExperimentalCoilApi
 @Composable
 fun DogDetailScreen(
-    dog: Dog,
-    probableDogsIds: List<String>,
-    isRecognition: Boolean,
-    status: ApiResponseStatus<Any>? = null,
-    onButtonClicked: () -> Unit,
-    onErrorDialogDismiss: () -> Unit,
+    finishActivity: () -> Unit,
     detailViewModel: DogDetailViewModel = hiltViewModel()
 ) {
     val probableDogsDialogEnabled = remember { mutableStateOf(false) }
+    val status = detailViewModel.status.value
+    val dog = detailViewModel.dog.value!!
+    val isRecognition = detailViewModel.isRecognition.value
+
+    if (status is ApiResponseStatus.Success) {
+        finishActivity()
+    }
 
     Box(
         modifier = Modifier
@@ -68,7 +70,13 @@ fun DogDetailScreen(
             modifier = Modifier
                 .align(alignment = Alignment.BottomCenter)
                 .semantics { testTag = "close-details-screen-fab" },
-            onClick = { onButtonClicked() },
+            onClick = {
+                if (isRecognition) {
+                    detailViewModel.addDogToUser()
+                } else {
+                    finishActivity()
+                }
+            },
         ) {
             Icon(
                 imageVector = Icons.Filled.Check,
@@ -79,7 +87,7 @@ fun DogDetailScreen(
         if (status is ApiResponseStatus.Loading) {
             LoadingWheel()
         } else if (status is ApiResponseStatus.Error) {
-            ErrorDialog(status.messageId, onErrorDialogDismiss)
+            ErrorDialog(status.messageId) { detailViewModel.resetApiResponseStatus() }
         }
 
         if (probableDogsDialogEnabled.value) {
@@ -319,19 +327,5 @@ private fun DogDataColumn(
 @Preview
 @Composable
 fun DogDetailScreenPreview() {
-    val dog = Dog(
-        1L,
-        78,
-        "Pug",
-        "Herding",
-        "70",
-        "75",
-        "https://firebasestorage.googleapis.com/v0/b/perrodex-app.appspot.com/o/dog_details_images%2Fn02085620-chihuahua.png?alt=media&token=b58f2088-557f-4884-9763-6492457d8c68",
-        "10 - 12",
-        "Friendly, playful",
-        "5",
-        "6"
-    )
-    DogDetailScreen(dog, probableDogsIds = listOf(), isRecognition = false,
-        onButtonClicked = { }, onErrorDialogDismiss = { })
+    DogDetailScreen(finishActivity = { })
 }
