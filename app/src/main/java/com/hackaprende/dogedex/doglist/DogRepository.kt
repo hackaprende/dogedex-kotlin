@@ -1,24 +1,26 @@
 package com.hackaprende.dogedex.doglist
 
 import com.hackaprende.dogedex.R
-import com.hackaprende.dogedex.model.Dog
 import com.hackaprende.dogedex.api.ApiResponseStatus
 import com.hackaprende.dogedex.api.ApiService
 import com.hackaprende.dogedex.api.dto.AddDogToUserDTO
 import com.hackaprende.dogedex.api.dto.DogDTOMapper
 import com.hackaprende.dogedex.api.makeNetworkCall
-import com.hackaprende.dogedex.di.DispatchersModule
+import com.hackaprende.dogedex.model.Dog
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 import javax.inject.Inject
 
 interface DogTasks {
     suspend fun getDogCollection(): ApiResponseStatus<List<Dog>>
     suspend fun addDogToUser(dogId: Long): ApiResponseStatus<Any>
     suspend fun getDogByMlId(mlDogId: String): ApiResponseStatus<Dog>
+    suspend fun getProbableDogs(probableDogsIds: ArrayList<String>): Flow<ApiResponseStatus<Dog>>
 }
 
 class DogRepository @Inject constructor(
@@ -94,4 +96,12 @@ class DogRepository @Inject constructor(
         val dogDTOMapper = DogDTOMapper()
         dogDTOMapper.fromDogDTOToDogDomain(response.data.dog)
     }
+
+    override suspend fun getProbableDogs(probableDogsIds: ArrayList<String>):
+            Flow<ApiResponseStatus<Dog>> = flow {
+        for (mlDogId in probableDogsIds) {
+            val dog = getDogByMlId(mlDogId)
+            emit(dog)
+        }
+    }.flowOn(dispatcher)
 }
