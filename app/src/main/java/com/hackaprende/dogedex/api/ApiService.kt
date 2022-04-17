@@ -4,13 +4,10 @@ import com.hackaprende.dogedex.*
 import com.hackaprende.dogedex.api.dto.AddDogToUserDTO
 import com.hackaprende.dogedex.api.dto.LoginDTO
 import com.hackaprende.dogedex.api.dto.SignUpDTO
-import com.hackaprende.dogedex.api.responses.DogListApiResponse
 import com.hackaprende.dogedex.api.responses.AuthApiResponse
 import com.hackaprende.dogedex.api.responses.DefaultResponse
 import com.hackaprende.dogedex.api.responses.DogApiResponse
-import okhttp3.OkHttpClient
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
+import com.hackaprende.dogedex.api.responses.DogListApiResponse
 import retrofit2.http.*
 
 interface ApiService {

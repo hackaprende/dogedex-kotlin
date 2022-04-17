@@ -20,8 +20,6 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.core.content.ContextCompat
 import coil.annotation.ExperimentalCoilApi
-import com.hackaprende.dogedex.LABEL_PATH
-import com.hackaprende.dogedex.MODEL_PATH
 import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.api.ApiResponseStatus
 import com.hackaprende.dogedex.api.ApiServiceInterceptor
@@ -29,14 +27,12 @@ import com.hackaprende.dogedex.auth.LoginActivity
 import com.hackaprende.dogedex.databinding.ActivityMainBinding
 import com.hackaprende.dogedex.dogdetail.DogDetailComposeActivity
 import com.hackaprende.dogedex.doglist.DogListActivity
-import com.hackaprende.dogedex.machinelearning.Classifier
 import com.hackaprende.dogedex.machinelearning.DogRecognition
 import com.hackaprende.dogedex.model.Dog
 import com.hackaprende.dogedex.model.User
 import com.hackaprende.dogedex.settings.SettingsActivity
 import com.hackaprende.dogedex.testutils.EspressoIdlingResource
 import dagger.hilt.android.AndroidEntryPoint
-import org.tensorflow.lite.support.common.FileUtil
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
