@@ -9,6 +9,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -56,6 +57,7 @@ fun DogDetailScreen(
         contentAlignment = Alignment.TopCenter
     ) {
         DogInformation(dog, isRecognition) {
+            detailViewModel.getProbableDogs()
             probableDogsDialogEnabled.value = true
         }
         Image(
@@ -90,13 +92,17 @@ fun DogDetailScreen(
             ErrorDialog(status.messageId) { detailViewModel.resetApiResponseStatus() }
         }
 
+        val probableDogList = detailViewModel.probableDogList.collectAsState().value
+
         if (probableDogsDialogEnabled.value) {
             MostProbableDogsDialog(
-                getFakeDogs(),
+                probableDogList,
                 onShowMostProbableDogsDialogDismiss = {
                     probableDogsDialogEnabled.value = false
                 },
-                onItemClicked = { }
+                onItemClicked = {
+                    detailViewModel.updateDog(it)
+                }
             )
         }
     }

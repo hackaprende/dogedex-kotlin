@@ -21,7 +21,7 @@ class ClassifierRepository @Inject constructor(private val classifier: Classifie
             if (bitmap == null) {
                 listOf(DogRecognition("", 0f))
             } else {
-                classifier.recognizeImage(bitmap).subList(0, 4)
+                classifier.recognizeImage(bitmap).subList(0, 5)
             }
         }
 
