@@ -14,26 +14,25 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Dogedex">
         <activity
-            android:name=".dogdetail.DogDetailComposeActivity"
+            android:name="com.hackaprende.dogedex.core.doglist.DogListActivity"
+            android:exported="false"
+            android:parentActivityName="com.hackaprende.dogedex.camera.main.MainActivity" />
+        <activity
+            android:name="com.hackaprende.dogedex.core.dogdetail.DogDetailComposeActivity"
             android:exported="false"
             android:label="@string/title_activity_dog_detail_compose"
             android:theme="@style/Theme.Dogedex" />
         <activity
-            android:name=".WholeImageActivity"
+            android:name=".core.WholeImageActivity"
             android:exported="false" />
         <activity
-            android:name=".settings.SettingsActivity"
-            android:exported="false"
-            android:parentActivityName=".main.MainActivity" />
-        <activity
-            android:name=".auth.LoginActivity"
+            android:name="com.hackaprende.dogedex.core.settings.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name=".doglist.DogListActivity"
-            android:exported="false"
-            android:parentActivityName=".main.MainActivity" />
+            android:name="com.hackaprende.dogedex.core.auth.LoginActivity"
+            android:exported="false" />
         <activity
-            android:name=".main.MainActivity"
+            android:name="com.hackaprende.dogedex.camera.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

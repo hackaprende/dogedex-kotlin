@@ -6,9 +6,9 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import coil.annotation.ExperimentalCoilApi
 import com.hackaprende.dogedex.core.api.ApiResponseStatus
-import com.hackaprende.dogedex.doglist.DogListScreen
-import com.hackaprende.dogedex.doglist.DogListViewModel
-import com.hackaprende.dogedex.doglist.DogTasks
+import com.hackaprende.dogedex.core.doglist.DogListScreen
+import com.hackaprende.dogedex.core.doglist.DogListViewModel
+import com.hackaprende.dogedex.core.doglist.DogTasks
 import com.hackaprende.dogedex.core.model.Dog
 import org.junit.Rule
 import org.junit.Test

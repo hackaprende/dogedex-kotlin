@@ -2,8 +2,8 @@ package com.hackaprende.dogedex.viewmodel
 
 import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.core.api.ApiResponseStatus
-import com.hackaprende.dogedex.auth.AuthTasks
-import com.hackaprende.dogedex.auth.AuthViewModel
+import com.hackaprende.dogedex.camera.auth.AuthTasks
+import com.hackaprende.dogedex.camera.auth.AuthViewModel
 import com.hackaprende.dogedex.core.model.User
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule

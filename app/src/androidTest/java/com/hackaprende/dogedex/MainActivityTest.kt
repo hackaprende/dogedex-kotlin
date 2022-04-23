@@ -16,14 +16,14 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.platform.app.InstrumentationRegistry
 import coil.annotation.ExperimentalCoilApi
 import com.hackaprende.dogedex.core.api.ApiResponseStatus
-import com.hackaprende.dogedex.di.ClassifierModule
-import com.hackaprende.dogedex.di.DogTasksModule
-import com.hackaprende.dogedex.doglist.DogTasks
-import com.hackaprende.dogedex.machinelearning.ClassifierTasks
-import com.hackaprende.dogedex.machinelearning.DogRecognition
-import com.hackaprende.dogedex.main.MainActivity
+import com.hackaprende.dogedex.camera.di.ClassifierModule
+import com.hackaprende.dogedex.camera.di.DogTasksModule
+import com.hackaprende.dogedex.core.doglist.DogTasks
+import com.hackaprende.dogedex.camera.machinelearning.ClassifierTasks
+import com.hackaprende.dogedex.camera.machinelearning.DogRecognition
+import com.hackaprende.dogedex.camera.main.MainActivity
 import com.hackaprende.dogedex.core.model.Dog
-import com.hackaprende.dogedex.testutils.EspressoIdlingResource
+import com.hackaprende.dogedex.core.testutils.EspressoIdlingResource
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -40,7 +40,7 @@ import javax.inject.Inject
 @ExperimentalCoilApi
 @ExperimentalMaterialApi
 @ExperimentalFoundationApi
-@UninstallModules(DogTasksModule::class, ClassifierModule::class)
+@UninstallModules(com.hackaprende.dogedex.camera.di.DogTasksModule::class, com.hackaprende.dogedex.camera.di.ClassifierModule::class)
 @HiltAndroidTest
 class MainActivityTest {
 

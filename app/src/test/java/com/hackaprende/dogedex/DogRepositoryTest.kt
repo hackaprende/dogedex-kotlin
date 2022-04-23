@@ -7,7 +7,7 @@ import com.hackaprende.dogedex.core.api.dto.DogDTO
 import com.hackaprende.dogedex.core.api.dto.LoginDTO
 import com.hackaprende.dogedex.core.api.dto.SignUpDTO
 import com.hackaprende.dogedex.core.api.responses.*
-import com.hackaprende.dogedex.doglist.DogRepository
+import com.hackaprende.dogedex.core.doglist.DogRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestCoroutineDispatcher

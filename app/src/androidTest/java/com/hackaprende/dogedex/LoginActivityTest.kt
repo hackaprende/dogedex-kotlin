@@ -10,9 +10,9 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import coil.annotation.ExperimentalCoilApi
 import com.hackaprende.dogedex.core.api.ApiResponseStatus
-import com.hackaprende.dogedex.auth.AuthTasks
-import com.hackaprende.dogedex.auth.LoginActivity
-import com.hackaprende.dogedex.di.AuthTasksModule
+import com.hackaprende.dogedex.camera.auth.AuthTasks
+import com.hackaprende.dogedex.camera.auth.LoginActivity
+import com.hackaprende.dogedex.camera.di.AuthTasksModule
 import com.hackaprende.dogedex.core.model.User
 import dagger.Binds
 import dagger.Module
@@ -28,7 +28,7 @@ import javax.inject.Inject
 @ExperimentalCoilApi
 @ExperimentalFoundationApi
 @ExperimentalMaterialApi
-@UninstallModules(AuthTasksModule::class)
+@UninstallModules(com.hackaprende.dogedex.camera.di.AuthTasksModule::class)
 @HiltAndroidTest
 class LoginActivityTest {
 

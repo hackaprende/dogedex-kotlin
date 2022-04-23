@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="camera_permission_rationale_dialog_message">Acepta la camara o me da amsiedad</string>
+    <string name="camera_permission_rejected_message">You need to accept camera permission to use camera</string>
+    <string name="camera_permission_rationale_dialog_title">Aceptame por favor</string>
+    <string name="this_is_a_content_description">This is a content description</string>
+</resources>
