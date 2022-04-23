@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="unknown_host_exception_error">There is no internet connection</string>
+    <string name="wrong_user_or_password">Wrong user or password</string>
+    <string name="unknown_error">There was an error</string>
+    <string name="error_sign_up">Error signing up</string>
+    <string name="error_sign_in">Error logging in</string>
+    <string name="user_already_exists">User already exists</string>
+    <string name="error_adding_dog">There was an error adding dog to collection</string>
+</resources>

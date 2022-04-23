@@ -5,9 +5,9 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import coil.annotation.ExperimentalCoilApi
-import com.hackaprende.dogedex.api.ApiResponseStatus
+import com.hackaprende.dogedex.core.api.ApiResponseStatus
 import com.hackaprende.dogedex.doglist.DogTasks
-import com.hackaprende.dogedex.model.Dog
+import com.hackaprende.dogedex.core.model.Dog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -48,12 +48,12 @@ class DogDetailViewModel @Inject constructor(
         viewModelScope.launch {
             dogRepository.getProbableDogs(probableDogsIds.value)
                 .collect { apiResponseStatus ->
-                if (apiResponseStatus is ApiResponseStatus.Success) {
-                    val probableDogMutableList = _probableDogList.value.toMutableList()
-                    probableDogMutableList.add(apiResponseStatus.data)
-                    _probableDogList.value = probableDogMutableList
+                    if (apiResponseStatus is ApiResponseStatus.Success) {
+                        val probableDogMutableList = _probableDogList.value.toMutableList()
+                        probableDogMutableList.add(apiResponseStatus.data)
+                        _probableDogList.value = probableDogMutableList
+                    }
                 }
-            }
         }
     }
 

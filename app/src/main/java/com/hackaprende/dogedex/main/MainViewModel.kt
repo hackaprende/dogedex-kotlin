@@ -5,11 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.hackaprende.dogedex.api.ApiResponseStatus
+import com.hackaprende.dogedex.core.api.ApiResponseStatus
 import com.hackaprende.dogedex.doglist.DogTasks
 import com.hackaprende.dogedex.machinelearning.ClassifierTasks
 import com.hackaprende.dogedex.machinelearning.DogRecognition
-import com.hackaprende.dogedex.model.Dog
+import com.hackaprende.dogedex.core.model.Dog
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

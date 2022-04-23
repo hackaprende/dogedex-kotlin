@@ -1,12 +1,12 @@
 package com.hackaprende.dogedex
 
-import com.hackaprende.dogedex.api.ApiResponseStatus
-import com.hackaprende.dogedex.api.ApiService
-import com.hackaprende.dogedex.api.dto.AddDogToUserDTO
-import com.hackaprende.dogedex.api.dto.DogDTO
-import com.hackaprende.dogedex.api.dto.LoginDTO
-import com.hackaprende.dogedex.api.dto.SignUpDTO
-import com.hackaprende.dogedex.api.responses.*
+import com.hackaprende.dogedex.core.api.ApiResponseStatus
+import com.hackaprende.dogedex.core.api.ApiService
+import com.hackaprende.dogedex.core.api.dto.AddDogToUserDTO
+import com.hackaprende.dogedex.core.api.dto.DogDTO
+import com.hackaprende.dogedex.core.api.dto.LoginDTO
+import com.hackaprende.dogedex.core.api.dto.SignUpDTO
+import com.hackaprende.dogedex.core.api.responses.*
 import com.hackaprende.dogedex.doglist.DogRepository
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.runBlocking

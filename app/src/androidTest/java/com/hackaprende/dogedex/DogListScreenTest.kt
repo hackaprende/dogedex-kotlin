@@ -2,15 +2,14 @@ package com.hackaprende.dogedex
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.ui.semantics.testTag
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import coil.annotation.ExperimentalCoilApi
-import com.hackaprende.dogedex.api.ApiResponseStatus
+import com.hackaprende.dogedex.core.api.ApiResponseStatus
 import com.hackaprende.dogedex.doglist.DogListScreen
 import com.hackaprende.dogedex.doglist.DogListViewModel
 import com.hackaprende.dogedex.doglist.DogTasks
-import com.hackaprende.dogedex.model.Dog
+import com.hackaprende.dogedex.core.model.Dog
 import org.junit.Rule
 import org.junit.Test
 

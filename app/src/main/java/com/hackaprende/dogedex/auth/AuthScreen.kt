@@ -6,12 +6,12 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.hackaprende.dogedex.api.ApiResponseStatus
+import com.hackaprende.dogedex.core.api.ApiResponseStatus
 import com.hackaprende.dogedex.auth.AuthNavDestinations.LoginScreenDestination
 import com.hackaprende.dogedex.auth.AuthNavDestinations.SignUpScreenDestination
 import com.hackaprende.dogedex.composables.ErrorDialog
 import com.hackaprende.dogedex.composables.LoadingWheel
-import com.hackaprende.dogedex.model.User
+import com.hackaprende.dogedex.core.model.User
 
 @Composable
 fun AuthScreen(

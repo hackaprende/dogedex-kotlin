@@ -5,11 +5,11 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performTextInput
-import com.hackaprende.dogedex.api.ApiResponseStatus
+import com.hackaprende.dogedex.core.api.ApiResponseStatus
 import com.hackaprende.dogedex.auth.AuthScreen
 import com.hackaprende.dogedex.auth.AuthTasks
 import com.hackaprende.dogedex.auth.AuthViewModel
-import com.hackaprende.dogedex.model.User
+import com.hackaprende.dogedex.core.model.User
 import org.junit.Rule
 import org.junit.Test
 

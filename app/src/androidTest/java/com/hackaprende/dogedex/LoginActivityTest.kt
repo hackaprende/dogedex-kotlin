@@ -9,11 +9,11 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import coil.annotation.ExperimentalCoilApi
-import com.hackaprende.dogedex.api.ApiResponseStatus
+import com.hackaprende.dogedex.core.api.ApiResponseStatus
 import com.hackaprende.dogedex.auth.AuthTasks
 import com.hackaprende.dogedex.auth.LoginActivity
 import com.hackaprende.dogedex.di.AuthTasksModule
-import com.hackaprende.dogedex.model.User
+import com.hackaprende.dogedex.core.model.User
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

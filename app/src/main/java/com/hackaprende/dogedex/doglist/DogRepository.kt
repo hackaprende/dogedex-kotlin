@@ -1,12 +1,12 @@
 package com.hackaprende.dogedex.doglist
 
 import com.hackaprende.dogedex.R
-import com.hackaprende.dogedex.api.ApiResponseStatus
-import com.hackaprende.dogedex.api.ApiService
-import com.hackaprende.dogedex.api.dto.AddDogToUserDTO
-import com.hackaprende.dogedex.api.dto.DogDTOMapper
-import com.hackaprende.dogedex.api.makeNetworkCall
-import com.hackaprende.dogedex.model.Dog
+import com.hackaprende.dogedex.core.api.ApiResponseStatus
+import com.hackaprende.dogedex.core.api.ApiService
+import com.hackaprende.dogedex.core.api.dto.AddDogToUserDTO
+import com.hackaprende.dogedex.core.api.dto.DogDTOMapper
+import com.hackaprende.dogedex.core.api.makeNetworkCall
+import com.hackaprende.dogedex.core.model.Dog
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.Flow

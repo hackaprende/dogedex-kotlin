@@ -8,7 +8,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import coil.annotation.ExperimentalCoilApi
 import com.hackaprende.dogedex.auth.LoginActivity
 import com.hackaprende.dogedex.databinding.ActivitySettingsBinding
-import com.hackaprende.dogedex.model.User
+import com.hackaprende.dogedex.core.model.User
 
 @ExperimentalCoilApi
 @ExperimentalFoundationApi

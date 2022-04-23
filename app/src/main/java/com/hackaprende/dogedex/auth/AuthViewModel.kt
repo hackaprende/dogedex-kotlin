@@ -4,8 +4,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.hackaprende.dogedex.R
-import com.hackaprende.dogedex.api.ApiResponseStatus
-import com.hackaprende.dogedex.model.User
+import com.hackaprende.dogedex.core.api.ApiResponseStatus
+import com.hackaprende.dogedex.core.model.User
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject

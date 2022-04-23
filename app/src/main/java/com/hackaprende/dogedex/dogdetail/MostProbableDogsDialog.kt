@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
 import com.hackaprende.dogedex.R
 import com.hackaprende.dogedex.dogdetail.ui.theme.DogedexTheme
-import com.hackaprende.dogedex.model.Dog
+import com.hackaprende.dogedex.core.model.Dog
 
 @ExperimentalCoilApi
 @Composable

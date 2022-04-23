@@ -9,7 +9,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import coil.annotation.ExperimentalCoilApi
 import com.hackaprende.dogedex.dogdetail.DogDetailComposeActivity
 import com.hackaprende.dogedex.dogdetail.ui.theme.DogedexTheme
-import com.hackaprende.dogedex.model.Dog
+import com.hackaprende.dogedex.core.model.Dog
 import dagger.hilt.android.AndroidEntryPoint
 
 @ExperimentalMaterialApi

@@ -1,9 +1,9 @@
 package com.hackaprende.dogedex.viewmodel
 
-import com.hackaprende.dogedex.api.ApiResponseStatus
+import com.hackaprende.dogedex.core.api.ApiResponseStatus
 import com.hackaprende.dogedex.doglist.DogListViewModel
 import com.hackaprende.dogedex.doglist.DogTasks
-import com.hackaprende.dogedex.model.Dog
+import com.hackaprende.dogedex.core.model.Dog
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
 import org.junit.Test
