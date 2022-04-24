@@ -1,7 +1,7 @@
-package com.hackaprende.dogedex.core.di
+package com.hackaprende.dogedex.auth.di
 
-import com.hackaprende.dogedex.core.auth.AuthRepository
-import com.hackaprende.dogedex.core.auth.AuthTasks
+import com.hackaprende.dogedex.auth.auth.AuthRepository
+import com.hackaprende.dogedex.auth.auth.AuthTasks
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

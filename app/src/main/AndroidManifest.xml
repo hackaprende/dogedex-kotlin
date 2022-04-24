@@ -29,7 +29,7 @@
             android:name="com.hackaprende.dogedex.core.settings.SettingsActivity"
             android:exported="false" />
         <activity
-            android:name="com.hackaprende.dogedex.core.auth.LoginActivity"
+            android:name="com.hackaprende.dogedex.auth.auth.LoginActivity"
             android:exported="false" />
         <activity
             android:name="com.hackaprende.dogedex.camera.main.MainActivity"

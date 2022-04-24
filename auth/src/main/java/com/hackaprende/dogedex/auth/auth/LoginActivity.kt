@@ -1,4 +1,4 @@
-package com.hackaprende.dogedex.core.auth
+package com.hackaprende.dogedex.auth.auth
 
 import android.content.Intent
 import android.os.Bundle

@@ -1,8 +1,9 @@
-package com.hackaprende.dogedex.core.auth
+package com.hackaprende.dogedex.auth.auth
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.hackaprende.dogedex.auth.auth.AuthTasks
 import com.hackaprende.dogedex.core.R
 import com.hackaprende.dogedex.core.api.ApiResponseStatus
 import com.hackaprende.dogedex.core.model.User

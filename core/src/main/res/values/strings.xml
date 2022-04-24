@@ -38,4 +38,5 @@
     <string name="not_your_dog_button">Not your dog? Tap to see other probable dogs</string>
     <string name="other_probable_dogs">Other probable dogs</string>
     <string name="dismiss">My dog is not here</string>
+    <string name="login_screen_error">Login Screen error</string>
 </resources>

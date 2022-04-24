@@ -1,4 +1,4 @@
-package com.hackaprende.dogedex.core.auth
+package com.hackaprende.dogedex.auth.auth
 
 object AuthNavDestinations {
     const val LoginScreenDestination = "login_screen"

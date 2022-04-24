@@ -23,7 +23,6 @@ import coil.annotation.ExperimentalCoilApi
 import com.hackaprende.dogedex.camera.R
 import com.hackaprende.dogedex.core.api.ApiResponseStatus
 import com.hackaprende.dogedex.core.api.ApiServiceInterceptor
-import com.hackaprende.dogedex.core.auth.LoginActivity
 import com.hackaprende.dogedex.camera.databinding.ActivityMainBinding
 import com.hackaprende.dogedex.core.dogdetail.DogDetailComposeActivity
 import com.hackaprende.dogedex.core.doglist.DogListActivity
@@ -216,7 +215,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openLoginActivity() {
-        startActivity(Intent(this, LoginActivity::class.java))
+        try {
+            startActivity(
+                Intent(
+                    this,
+                    Class.forName("com.hackaprende.dogedex.auth.auth.LoginActivity")
+                )
+            )
+        } catch (e: ClassNotFoundException) {
+            Toast.makeText(this,
+                getString(com.hackaprende.dogedex.core.R.string.login_screen_error), Toast.LENGTH_SHORT).show()
+        }
         finish()
     }
 }

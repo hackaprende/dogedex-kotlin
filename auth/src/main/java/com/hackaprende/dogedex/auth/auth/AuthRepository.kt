@@ -1,4 +1,4 @@
-package com.hackaprende.dogedex.core.auth
+package com.hackaprende.dogedex.auth.auth
 
 import com.hackaprende.dogedex.core.api.ApiResponseStatus
 import com.hackaprende.dogedex.core.api.ApiService

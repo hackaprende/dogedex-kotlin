@@ -1,4 +1,4 @@
-package com.hackaprende.dogedex.core.auth
+package com.hackaprende.dogedex.auth.auth
 
 import androidx.compose.runtime.Composable
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -7,8 +7,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.hackaprende.dogedex.core.api.ApiResponseStatus
-import com.hackaprende.dogedex.core.auth.AuthNavDestinations.LoginScreenDestination
-import com.hackaprende.dogedex.core.auth.AuthNavDestinations.SignUpScreenDestination
+import com.hackaprende.dogedex.auth.auth.AuthNavDestinations.LoginScreenDestination
+import com.hackaprende.dogedex.auth.auth.AuthNavDestinations.SignUpScreenDestination
 import com.hackaprende.dogedex.core.composables.ErrorDialog
 import com.hackaprende.dogedex.core.composables.LoadingWheel
 import com.hackaprende.dogedex.core.model.User
