@@ -7,11 +7,11 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk 33
 
     defaultConfig {
         minSdk 21
-        targetSdk 31
+        targetSdk 33
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -41,54 +41,54 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
-    implementation 'androidx.appcompat:appcompat:1.4.1'
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1"
-    implementation "androidx.activity:activity-ktx:1.4.0"
+    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
+    implementation "androidx.activity:activity-ktx:1.6.1"
     implementation "io.coil-kt:coil:1.4.0"
 
-    implementation "androidx.navigation:navigation-fragment-ktx:2.4.1"
-    implementation "androidx.navigation:navigation-ui-ktx:2.4.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.5.3"
+    implementation "androidx.navigation:navigation-ui-ktx:2.5.3"
 
     //CameraX
-    implementation "androidx.camera:camera-camera2:1.1.0-beta02"
-    implementation "androidx.camera:camera-lifecycle:1.1.0-beta02"
-    implementation "androidx.camera:camera-view:1.1.0-beta02"
+    implementation "androidx.camera:camera-camera2:1.2.0-rc01"
+    implementation "androidx.camera:camera-lifecycle:1.2.0-rc01"
+    implementation "androidx.camera:camera-view:1.2.0-rc01"
 
     // TensorFlow Lite
     implementation 'org.tensorflow:tensorflow-lite:0.0.0-nightly-SNAPSHOT'
     implementation 'org.tensorflow:tensorflow-lite-support:0.1.0'
 
     // Jetpack Compose
-    implementation 'androidx.compose.ui:ui:1.1.1'
+    implementation 'androidx.compose.ui:ui:1.3.0'
     // Tooling support (Previews, etc.)
-    implementation 'androidx.compose.ui:ui-tooling:1.1.1'
+    implementation 'androidx.compose.ui:ui-tooling:1.3.0'
     // Foundation (Border, Background, Box, Image, Scroll, shapes, animations, etc.)
-    implementation 'androidx.compose.foundation:foundation:1.1.1'
+    implementation 'androidx.compose.foundation:foundation:1.3.0'
     // Material Design
-    implementation 'androidx.compose.material:material:1.1.1'
+    implementation 'androidx.compose.material:material:1.3.0'
     // Material design icons
-    implementation 'androidx.compose.material:material-icons-core:1.1.1'
-    implementation 'androidx.compose.material:material-icons-extended:1.1.1'
+    implementation 'androidx.compose.material:material-icons-core:1.3.0'
+    implementation 'androidx.compose.material:material-icons-extended:1.3.0'
     // Integration with activities
-    implementation 'androidx.activity:activity-compose:1.4.0'
+    implementation 'androidx.activity:activity-compose:1.6.1'
     // Integration with ViewModels
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1'
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
-    implementation "androidx.navigation:navigation-compose:2.4.1"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+    implementation "androidx.navigation:navigation-compose:2.5.3"
 
     // Coil
     implementation 'io.coil-kt:coil-compose:1.3.1'
 
     // UI Tests
-    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.1.1'
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.3.0'
 
     // Dependency Injection with Hilt
-    implementation "com.google.dagger:hilt-android:2.38.1"
-    kapt "com.google.dagger:hilt-compiler:2.38.1"
+    implementation "com.google.dagger:hilt-android:2.42"
+    kapt "com.google.dagger:hilt-compiler:2.42"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
 
     // Espresso idling resources
@@ -99,10 +99,10 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.13.2'
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-    debugImplementation "androidx.compose.ui:ui-test-manifest:1.1.1"
-    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.38.1'
-    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.38.1'
+    debugImplementation "androidx.compose.ui:ui-test-manifest:1.3.0"
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.42'
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.42'
 }
